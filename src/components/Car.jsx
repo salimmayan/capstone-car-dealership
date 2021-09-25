@@ -1,12 +1,12 @@
+
 import React from 'react';
 
-function CarList(props) {
+function Car(props) {
     return (
         <div>
-            <h1>Car List</h1>
             
         </div>
     );
 }
 
-export default CarList;
+export default Car;
