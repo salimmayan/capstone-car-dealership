@@ -10,3 +10,6 @@
 #### Wednesday, 09/22
 * 6:00: Researching on Firebase on how to store large images
 * 8:46: Continue researching on Firebase on how to store large images
+#### Tuesday, 09/28
+* 6:00: Doing research on firebase authentication
+* 8:46: Doign research on react router
