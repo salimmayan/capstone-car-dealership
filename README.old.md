@@ -14,3 +14,5 @@
 * 6:00: Doing research on firebase authentication
 * 8:46: Doign research on react router
 * 8:46: warpping up reading
+#### Wednesday, 09/29
+* 6:00: Researching how to do slide show
