@@ -24,9 +24,17 @@ function NewCarForm(props) {
 
     return firestore.collection('Cars').add(
       {
-        names: event.target.names.value,
-        location: event.target.location.value,
-        issue: event.target.issue.value,
+        carModel: event.target.carModel.value,
+        Miles: event.target.Miles.value,
+        Trim: event.target.Trim.value,
+        Price: event.target.Price.value,
+        Year: event.target.Year.value,
+        BodyType: event.target.BodyType.value,
+        Exterior: event.target.Exterior.value,
+        MPG: event.target.MPG.value,
+        Transmission: event.target.Transmission.value,
+        VIN: event.target.VIN.value,
+        Features: event.target.Features.value,
         timeOpen: firestore.FieldValue.serverTimestamp()
       }
     );
