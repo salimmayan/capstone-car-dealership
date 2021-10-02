@@ -5,7 +5,7 @@ export default (state = {}, action) => {
     console.log(state);
     const { names, location, issue, id, formattedWaitTime, timeOpen } = action;
     switch (action.type) {
-        case c.ADD_TICKET:
+        case c.ADD_Car:
             return Object.assign({}, state, {
                 [id]: {
                   names: names,
@@ -17,15 +17,15 @@ export default (state = {}, action) => {
                 }
               });
 
-        case c.DELETE_TICKET:
+        case c.DELETE_Car:
             let newState = { ...state };
             delete newState[id];
             return newState;
 
         case c.UPDATE_TIME:
-            const newTicket = Object.assign({}, state[id], { formattedWaitTime });
+            const newCar = Object.assign({}, state[id], { formattedWaitTime });
             const updatedState = Object.assign({}, state, {
-                [id]: newTicket
+                [id]: newCar
             });
             console.log("updatedState is");
             console.log(updatedState);
