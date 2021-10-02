@@ -3,16 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux';  //"createStore" is a METHOD from library 'redux'
+// import { createStore } from 'redux';  //"createStore" is a METHOD from library 'redux'
 import { Provider } from 'react-redux';
 // import reducer from './reducers/ticket-list-reducer';  //I created file "ticket-list-reducer.js" and now I am storing imported code in a varaible - "reducer" is a variable"
 import rootReducer from './reducers/index';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
 import firebase from "./firebase.js";
+import reducer from './reducers/index';  //note that "reducer" is a file that contains a function with switch statements. It contians an initial state
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import middlewareLogger from './middleware/middleware-logger';
+// import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(rootReducer); 
-// const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunkMiddleware, middlewareLogger)));
+// const store = createStore(rootReducer); 
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware, middlewareLogger)));
 
 const rrfProps = {
   firebase,

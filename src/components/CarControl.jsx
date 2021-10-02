@@ -7,6 +7,7 @@ import CarDetail from './CarDetail';
 import PropTypes from "prop-types";
 import * as a from './../actions'; // "actions" is a folder and not a file???
 import { withFirestore, isLoaded } from 'react-redux-firebase';
+import { makeApiCall } from './../actions';
 
 class CarControl extends Component {
 
@@ -16,6 +17,9 @@ class CarControl extends Component {
         this.state = {
             // formVisibleOnPage: false,
             // masterCarList: [],
+            error: null,
+            isLoaded: false,
+            headlines: [],
             selectedCar: null,
             editing: false
         };
@@ -23,6 +27,10 @@ class CarControl extends Component {
 
     componentDidMount() { //this is func defenition - where is it called? 
         console.log("componentDidMount() called!");
+        console.log("Component did mount - about to invoke dispatch(makeApiCall())");
+        // this.makeApiCall()
+        const { dispatch } = this.props;
+        dispatch(makeApiCall());
     }
 
     componentDidUpdate() { //this is func defenition - where is it called? 
@@ -132,6 +140,9 @@ class CarControl extends Component {
     }
 
     render() {
+        const { error, isLoading, headlines } = this.props;
+        console.log("headlines");
+        console.log(this.props.headlines);
         const auth = this.props.firebase.auth();
         if (!isLoaded(auth)) {  //check to see if the auth state has been loaded or not. If it hasn't, our help queue will render Loading....
             return (
@@ -178,7 +189,17 @@ class CarControl extends Component {
             return (
                 <React.Fragment>
                     <h1>I am in Carcontrol</h1>
-                    {currentlyVisibleState}
+
+                    <h1>Headlines</h1>
+                    {/* <ul>
+                        {headlines.map((headline, index) =>
+                            <li key={index}>
+                                <h3>{headline.title}</h3>
+                                <p>{headline.abstract}</p>
+                            </li>
+                        )}
+                    </ul> */}
+
                     <button onClick={this.handleClick}>{buttonText}</button>
                 </React.Fragment>
             );
@@ -188,16 +209,16 @@ class CarControl extends Component {
 }
 
 CarControl.propTypes = {
-    // masterCarList: PropTypes.object
+    headlines: PropTypes.array,
     masterCarList: PropTypes.object,
     formVisibleOnPage: PropTypes.bool
 };
 
 const mapStateToProps = state => {
     return {
-        // masterCarList: state
-        // masterCarList: state.masterCarList,
-        formVisibleOnPage: state.formVisibleOnPage
+        headlines: state.headlines,
+        isLoading: state.isLoading,
+        error: state.error
     }
 }
 

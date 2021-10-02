@@ -1,10 +1,10 @@
 import * as c from '../actions/ActionTypes';
 
-export default (state = {}, action) => {
-    console.log("in reducer - defautl state is ");
-    console.log(state);
+export default (state = {}, action) => {       
     const { names, location, issue, id, formattedWaitTime, timeOpen } = action;
-    switch (action.type) {
+     console.log("INSIDE CAR-LIST REDUCER - state is ...");
+     console.log(state);
+     switch (action.type) {       
         case c.ADD_Car:
             return Object.assign({}, state, {
                 [id]: {
