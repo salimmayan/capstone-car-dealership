@@ -14,6 +14,7 @@ import firebase from "../firebase";
 import ImageSlider from './ImageSlider';
 import { Container, Row, Col } from 'react-bootstrap';
 import FooterPage from './FooterPage';
+import NavBar from './NavigationBar';
 
 class CarControl extends Component {
 
@@ -162,6 +163,7 @@ console.log("Doc selectedCar is ");
       }
       return (
         <React.Fragment>
+          {/* <NavBar /> */}
         <div className ="container">
           {/* <div className="container"> */}
             <Container>
@@ -176,7 +178,7 @@ console.log("Doc selectedCar is ");
           <button onClick={this.handleClick}>{buttonText}</button>        
           
         </div>
-         {<FooterPage />}
+         {/* {<FooterPage />} */}
          </React.Fragment>
       );
     }

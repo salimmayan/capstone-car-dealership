@@ -12,17 +12,17 @@ const HelpQueueHeader = styled.h1`
 function Header(){
   return (
     <React.Fragment>
-    <HelpQueueHeader>
+    {/* <HelpQueueHeader>
       CONSOLIDATED CARS -HEADER COMPONENT
-    </HelpQueueHeader>
-    <ul>
+    </HelpQueueHeader> */}
+    {/* <ul>
       <li>
         <Link to="/">Home</Link>
       </li>
       <li>
         <Link to="/signin">Sign In</Link>
       </li>
-    </ul>
+    </ul> */}
 </React.Fragment>
   );
 }
