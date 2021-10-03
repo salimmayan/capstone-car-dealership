@@ -5,6 +5,7 @@ import NewCarForm from './NewCarForm';
 import EditCarForm from './EditCarForm';
 import CarDetail from './CarDetail';
 import PropTypes from "prop-types";
+import { SliderData } from './SliderData';
 import * as a from './../actions'; // "actions" is a folder and not a file???
 import { withFirestore, isLoaded } from 'react-redux-firebase';
 import { makeApiCall } from './../actions';
@@ -12,6 +13,7 @@ import LandingPage from './LandingPage';
 // import SlideShow from './SlideShow';
 import firebase from "../firebase";
 import ImageSlider from './ImageSlider';
+
 
 class CarControl extends Component {
 
