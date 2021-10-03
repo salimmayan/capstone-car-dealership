@@ -31,6 +31,7 @@ function CarList(props) {
               Trim={currentCar.Trim}
               Price={currentCar.Price}
               Year={currentCar.Year}
+              id={currentCar.id}
               key={currentCar.timeOpen} />
           })}
         </div>

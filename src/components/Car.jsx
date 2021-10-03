@@ -17,11 +17,11 @@ const myStyledComponentStyles = {
 function Car(props) {
   return (
     <React.Fragment>
-      <div onClick={() => props.whenCarClicked(props.id)}>
+      {/* <div onClick={() => props.whenCarClicked(props.id)}> */}
         {/* <h3>{props.Make} - {props.Miles}</h3> */}
-        <div onClick={() => props.onCarSelection(props.id)}>
+        <div onClick={() => props.whenCarClicked(props.id)}>
           <div className="thumbnail">
-            {/* <img style={myStyledComponentStyles} src={props.ImageURLs[0].value} alt=""></img> */}
+            {/* <img style={myStyledComponentStyles} src={props.IkeymageURLs[0].value} alt=""></img> */}
             <img style={myStyledComponentStyles} src={props.ImageURL} alt=""></img>
             <p className="moreWeight">
               {props.Year} {props.Make} {props.Model}
@@ -35,7 +35,7 @@ function Car(props) {
             </p>
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </React.Fragment>
   );
 }

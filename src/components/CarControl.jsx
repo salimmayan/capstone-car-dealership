@@ -18,7 +18,7 @@ class CarControl extends Component {
     console.log("constructor() called!");
     super(props);
     this.state = {
-      currentVisibleForm: true,
+      currentVisibleForm: false,
       editing: false,
       selectedCar: null,
       masterCarList: null,
@@ -42,24 +42,17 @@ class CarControl extends Component {
   };
 
   handleChangingSelectedCar = (id) => {
-    const selectedCar = this.state.masterCarList.filter(
-      (car) => car.id === id
-    )[0];
-    // console.log("inside handleChangingSelectedCar - ID of clicked car is ");
-    // console.log(selectedCar);
-    this.setState({ selectedCar: selectedCar }); //selectedCar will store object from SHARED SHARE masterCarList with a UUID corresponding to clicked car
-  };
-
-  handleDeletingKeg = () => {
-    const newEditing = false;
-    const newSelectedCar = null;
-    const newcurrentVisibleForm = false;
-    this.setState({
-      editing: newEditing,
-      selectedCar: newSelectedCar,
-      currentVisibleForm: newcurrentVisibleForm,
-    });
-  };
+    console.log("Doc ID is ");
+    console.log(id);
+    const fireStoreSelectedCar = this.props.firestore.get({ collection: 'car', doc: id });
+      // const firestoreCar = {
+      //   names: ticket.get("names"),
+      //   location: ticket.get("location"),
+      //   issue: ticket.get("issue"),
+      //   id: ticket.id
+      // }
+      this.setState({ selectedTicket: fireStoreSelectedCar });
+  }
 
   handleEditClick = () => {
     // console.log("keg control -  inside  handleEditClick = () => {");
@@ -75,6 +68,13 @@ class CarControl extends Component {
     console.log("inside handleOnSignInSuccess");
   };
 
+
+
+  handleDeletingCar = (id) => {
+    this.props.firestore.delete({ collection: 'car', doc: id });
+    this.setState({ masterCarList: this.props.firestore.get({ collection: 'car', doc: id })   });
+    this.setState({ selectedTicket: null });
+  };
 
   componentDidMount() {
     const db = firebase.firestore();
@@ -124,12 +124,12 @@ class CarControl extends Component {
       let currentVisibleForm = null;
       let buttonText = null;
       if (this.state.editing) {
-        currentVisibleForm = <EditCarForm car={this.state.selectedCar} onEditCar={this.handleAddingNewCarToList} />
+        currentVisibleForm = <EditCarForm car={this.state.selectedCar} onEditCar={this.handleAddingNewCarToList}  />
         buttonText = "Return to Car List";
       } else if (this.state.selectedCar != null) {
         currentVisibleForm =
           <CarDetail
-            car={this.state.selectedCar}
+            carDetail={this.state.selectedCar}
             onClickingDelete={this.handleDeletingCar}
             onClickingEdit={this.handleEditClick} />
         buttonText = "Return to car List";
@@ -139,7 +139,7 @@ class CarControl extends Component {
         buttonText = "Return to Car List";
       } else {
         // currentVisibleForm = <CarList CarList={this.state.masterCarList} onCarSelection={this.handleChangingSelectedCar} />;
-        currentVisibleForm = <CarList className="wrapperNew" onCarSelection={this.handleChangingSelectedCar} />;
+        currentVisibleForm = <CarList onCarSelection={this.handleChangingSelectedCar} />;
         buttonText = "Add Car";
       }
       return (

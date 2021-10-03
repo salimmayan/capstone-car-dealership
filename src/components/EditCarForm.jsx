@@ -7,12 +7,12 @@ import { Redirect } from 'react-router-dom';
 // NOTES:  window.location = '/'; is used to redirect from current page to "home". 
 
 function EditCarForm(props) {
-  const { car, buttonText } = props;
+  const { car } = props;
   const firestore = useFirestore(); //call useFirestore() function and save our Firestore reference in a constant called firestore
 
   const [updated, setUpdate] = React.useState(false);
 
-  function handleEditKegFormSubmission(event) {
+  function handleEditCarFormSubmission(event) {
     event.preventDefault();
     const updatedCar = {
       Make: event.target.Make.value,
@@ -53,10 +53,10 @@ function EditCarForm(props) {
     <React.Fragment>
       <br></br> <br></br> <br></br>
       <div className="reUsableCarFormh2">
-        <h2>{buttonText} Record</h2>
+        <h2>Update Record</h2>
         </div>
       <div className="reUsableKegForm coralColor container">
-        <form onSubmit={handleEditKegFormSubmission}><table className="table">
+        <form onSubmit={handleEditCarFormSubmission}><table className="table">
           <thead>
             <tr>
               <th>Field</th>
@@ -132,10 +132,10 @@ function EditCarForm(props) {
           </tbody>
         </table>
           <div className = "carDetailButton">
-            <button style ={{marginLeft: "50px"}} className="paddingRightLeft buttonPrimary btn btn-warning" type="submit">
-              {buttonText}
+            <button style ={{marginLeft: "50px"}} className="paddingRightLeft buttonPrimary btn btn-danger" type="submit">
+              Update
             </button>
-            <button style ={{marginLeft: "50px"}} className="paddingRightLeft buttonPrimary btn btn-secondory" type="reset">
+            <button style ={{marginLeft: "50px"}} className="paddingRightLeft buttonPrimary btn btn-warning" type="reset">
               Reset
           </button>
             <button id="close" style ={{marginLeft: "50px"}} className="paddingRightLeft buttonPrimary btn btn-primary" type="reset" onClick={handleClose}>
@@ -150,7 +150,7 @@ function EditCarForm(props) {
 
 EditCarForm.propTypes = {
   car: PropTypes.object,
-  buttonText: PropTypes.string,
+  onButtonText: PropTypes.string,
 };
 
 export default EditCarForm;

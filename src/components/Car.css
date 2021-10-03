@@ -103,6 +103,7 @@ display: block; /* remove extra space below image */
 
 .wrapperNew {
   justify-items : end;
+  grid-template-columns : repeat(5,1fr);
 }
 
 .container {
@@ -319,6 +320,7 @@ h3 {
   font-family: "Segoe UI";
   font-weight: 3000;
   align-items: center;
+  /* color: #ff0000; */
   margin-left: 45%; /*USEFUL: Aligns button to centre  */
 }
 

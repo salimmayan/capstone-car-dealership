@@ -6,7 +6,7 @@ import { v4 } from "uuid";
 
 const db = firebase.firestore();
 
-function NewCarForm() {
+function CreateCar() {
   const firestore = useFirestore();
   const [fileUrl, setFileURLs] = React.useState([]);
   const [uuID, setUuID] = React.useState();
@@ -186,4 +186,4 @@ function NewCarForm() {
   );
 }
 
-export default NewCarForm;
+export default CreateCar;
