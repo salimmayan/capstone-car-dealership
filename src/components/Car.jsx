@@ -5,10 +5,24 @@ function Car(props){
   return (
     <React.Fragment>
       <div onClick = {() => props.whenCarClicked(props.id)}>
-        <h3>{props.location} - {props.names}</h3>
-        <p><em>{props.issue}</em></p>
-        <p><em>{props.formattedWaitTime}</em></p>
+        <h3>{props.carModel} - {props.Miles}</h3>
+   
       </div>
+
+      {/* whenCarClicked = { props.onCarSelection }
+            carModel={car.carModel}
+            Miles={car.Miles}
+            Trim={car.Trim}
+            Price={car.Price}
+            Year={car.Year}
+            BodyType={car.BodyType}
+            Exterior={car.Exterior}
+            MPG={car.MPG}
+            Transmission={car.Transmission}
+            VIN={car.VIN}
+            Features={car.Features}
+            key={car.timeOpen}/> */}
+
       <hr/>
     </React.Fragment>
   );

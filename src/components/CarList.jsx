@@ -9,26 +9,34 @@ import { useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 function CarList(props){
   // The useFirestoreConnect() hook comes from react-redux-firebase.
   useFirestoreConnect([
-    { collection: 'cars' }
+    { collection: 'Cars' }
   ]);
 
   // The useSelector() hook comes from react-redux.
-  const cars = useSelector(state => state.firestore.ordered.cars);
-
+  const cars = useSelector(state => state.firestore.ordered.Cars);
+  console.log("Car List component: cars are ");
+  console.log(cars);
   // react-redux-firebase also offers a useful isLoaded() function.
   if (isLoaded(cars)) {
     return (
       <React.Fragment>
+        <h1>Car List component</h1>
         <hr/>
         {cars.map((car) => {
           return <Car
             whenCarClicked = { props.onCarSelection }
-            names={car.names}
-            location={car.location}
-            issue={car.issue}
-            formattedWaitTime={car.formattedWaitTime}
-            id={car.id}
-            key={car.id}/>
+            carModel={car.carModel}
+            Miles={car.Miles}
+            Trim={car.Trim}
+            Price={car.Price}
+            Year={car.Year}
+            BodyType={car.BodyType}
+            Exterior={car.Exterior}
+            MPG={car.MPG}
+            Transmission={car.Transmission}
+            VIN={car.VIN}
+            Features={car.Features}
+            key={car.timeOpen}/>
         })}
       </React.Fragment>
     );

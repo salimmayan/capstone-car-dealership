@@ -15,13 +15,13 @@ class CarControl extends Component {
         console.log("constructor() called!");
         super(props);
         this.state = {
-            // formVisibleOnPage: false,
-            // masterCarList: [],
-            error: null,
-            isLoaded: false,
-            headlines: [],
+            formVisibleOnPage: false,
             selectedCar: null,
-            editing: false
+            editing: false            
+            // masterCarList: [],
+            // error: null,
+            // isLoaded: false,
+            // headlines: [],
         };
     }
 
@@ -135,7 +135,8 @@ class CarControl extends Component {
         // const { dispatch } = this.props;
         this.setState({
             editing: false,
-            selectedCar: null
+            selectedCar: null,
+            formVisibleOnPage: false
         });
     }
 
@@ -163,14 +164,28 @@ class CarControl extends Component {
             console.log("render called!:SelectedCar:Editing:FormVisibleOnPage::::");
             console.log(this.state.selectedCar);
             console.log(this.state.editing);
-            console.log(this.props.formVisibleOnPage);
+            console.log(this.state.formVisibleOnPage);
 
             let currentlyVisibleState = null;
             let buttonText = null;
+
+            // formVisibleOnPage: false,
+            // selectedCar: null,
+            // editing: false        
+
+
             if (this.state.editing) {
+                console.log("CARCONTROL IF-ELSE: EditCar - formVisibleOnPage:selectedCar:editing");
+                console.log(this.state.formVisibleOnPage);
+                console.log(this.state.selectedCar);
+                console.log(this.state.editing);
                 currentlyVisibleState = <EditCarForm car={this.state.selectedCar} onEditCar={this.handleAddingNewCarToList} />
                 buttonText = "Return to Car List";
             } else if (this.state.selectedCar != null) {
+                console.log("CARCONTROL IF-ELSE: CarDetail - formVisibleOnPage:selectedCar:editing");
+                console.log(this.state.formVisibleOnPage);
+                console.log(this.state.selectedCar);
+                console.log(this.state.editing);
                 currentlyVisibleState =
                     <CarDetail
                         car={this.state.selectedCar}
@@ -178,19 +193,27 @@ class CarControl extends Component {
                         onClickingEdit={this.handleEditClick} />
                 buttonText = "Return to Car List";
                 // } else if (this.state.formVisibleOnPage) {
-            } else if (this.props.formVisibleOnPage) {
+            } else if (this.state.formVisibleOnPage) {
+                console.log("CARCONTROL IF-ELSE: NewCarForm - formVisibleOnPage:selectedCar:editing");
+                console.log(this.state.formVisibleOnPage);
+                console.log(this.state.selectedCar);
+                console.log(this.state.editing);
                 currentlyVisibleState = <NewCarForm onNewCarCreation={this.handleAddingNewCarToList} />;
                 buttonText = "Return to Car List";
             } else {
+                console.log("CARCONTROL IF-ELSE: CarList - formVisibleOnPage:selectedCar:editing");
+                console.log(this.state.formVisibleOnPage);
+                console.log(this.state.selectedCar);
+                console.log(this.state.editing);
                 // currentlyVisibleState = <CarList carList={this.state.masterCarList} onCarSelection={this.handleChangingSelectedCar} />;
-                currentlyVisibleState = <CarList carList={this.props.masterCarList} onCarSelection={this.handleChangingSelectedCar} />;
-                buttonText = "Add Car";
+                currentlyVisibleState = <CarList onCarSelection={this.handleChangingSelectedCar} />;
+                buttonText = "Go Back";
             }
             return (
                 <React.Fragment>
                     <h1>I am in Carcontrol</h1>
 
-                    <h1>Headlines</h1>
+                    {/* <h1>Headlines</h1> */}
                     {/* <ul>
                         {headlines.map((headline, index) =>
                             <li key={index}>
@@ -199,6 +222,7 @@ class CarControl extends Component {
                             </li>
                         )}
                     </ul> */}
+                    <h1>{currentlyVisibleState}</h1>
 
                     <button onClick={this.handleClick}>{buttonText}</button>
                 </React.Fragment>
@@ -210,7 +234,7 @@ class CarControl extends Component {
 
 CarControl.propTypes = {
     headlines: PropTypes.array,
-    masterCarList: PropTypes.object,
+    // masterCarList: PropTypes.object,
     formVisibleOnPage: PropTypes.bool
 };
 
