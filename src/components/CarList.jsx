@@ -4,7 +4,8 @@ import Car from "./Car";
 
 import { useSelector } from 'react-redux';
 import { useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
-
+import { Container, Row, Col } from 'react-bootstrap';
+// import Container from 'react-bootstrap/Container';
 
 function CarList(props) {
   // The useFirestoreConnect() hook comes from react-redux-firebase.
@@ -19,8 +20,11 @@ function CarList(props) {
   // react-redux-firebase also offers a useful isLoaded() function.
   if (isLoaded(cars)) {
     return (
-      <React.Fragment>
-        <div className="wrapperNew">
+
+      // <React.Fragment>
+        <Row>
+         
+        
           {/* <h1>Car List component</h1> */}
           {cars.map((currentCar) => {
             return <Car
@@ -34,8 +38,10 @@ function CarList(props) {
               id={currentCar.id}
               key={currentCar.timeOpen} />
           })}
-        </div>
-      </React.Fragment>
+        
+        
+        </Row>
+      // </React.Fragment>
     );
     // If the cars aren't loaded yet, our fragment will return a "Loading..." message.
   } else {

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Container, Row, Col } from 'react-bootstrap';
 
 const myStyledComponentStyles = {
   backgroundColor: "#ecf0f1",
@@ -16,7 +17,8 @@ const myStyledComponentStyles = {
 
 function Car(props) {
   return (
-    <React.Fragment>
+    <Col lg={4}>
+    <div>
       {/* <div onClick={() => props.whenCarClicked(props.id)}> */}
         {/* <h3>{props.Make} - {props.Miles}</h3> */}
         <div onClick={() => props.whenCarClicked(props.id)}>
@@ -36,7 +38,8 @@ function Car(props) {
           </div>
         </div>
       {/* </div> */}
-    </React.Fragment>
+    </div>
+    </Col>
   );
 }
 
