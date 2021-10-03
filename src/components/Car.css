@@ -1,0 +1,666 @@
+body {
+  background-color: white;
+  height: 100%;
+            margin: 0;
+}
+
+.newWrapper {
+  min-height: 100%; 
+  max-width: 100%;
+max-height: 100%;
+display: block; /* remove extra space below image */
+}
+
+.App {
+  text-align: center; 
+}
+ 
+.App-logo {
+  /* height: 40vmin; */
+}
+ 
+
+ 
+.App-link {
+  color: #09d3ac;
+}
+ 
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.wrapperNew2 {
+  display: grid; 
+  /* grid-template-columns: repeat(4, minmax(0, 1fr)); */
+  /* grid-template-columns: repeat(0, minmax(0, 1fr));*/
+  /* grid-column-gap: 1em; */
+  grid-row-gap: 3em;
+  margin: 1em;
+  overflow: hidden;
+  margin-top: 40px;
+  padding-top: 30px;
+}
+
+
+
+
+/* .row {
+  align-self: start;
+  display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+} */
+
+.KegCard {  
+  display: grid;
+  /* grid-template-columns: 200px repeat(auto-fill, 100px) 200px; */
+  /* grid-template-columns: repeat(4, minmax(0, 1fr)); */
+  /* grid-area: 4 / 1 / 2 / 6; */
+   grid-column-gap: 1em;
+  grid-row-gap: 1em;
+  overflow: hidden;
+  /* width: 400px;
+  height: 310px;     */
+  /* 285 is ideal   */
+  background-color: #fff;
+  position: relative;
+  width:100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  /* border: 2px lightgrey solid; */
+  /* border-radius: 5px; */
+  /* box-shadow: 3px 3px 3px 0 lightgrey; */
+  /* margin-bottom: 40px;
+  margin-top: 40px;*/
+  /* justify-content: space-between; */
+  /* row-gap: 20px;
+  grid-column-gap: 20px;
+	grid-row-gap: 20px; */
+}
+
+.vroomColor {
+  font-family: "Segoe UI";
+  font-size: 16px;
+  color: #5c5c5c;
+  white-space: wrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 2;
+  word-wrap: break-word;
+}
+
+.wrapperNew {
+  justify-items : end;
+}
+
+.container {
+  display: grid;
+  /* gap: 50px;
+  height: 100vh; */
+}
+
+.KegCard2 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-column-gap: 1em;
+  grid-row-gap: 3em;
+  margin: 1em;
+  overflow: hidden;
+  margin-top: 40px;
+  padding-top: 30px;
+  /* width: 400px;
+  height: 310px;     */
+  /* 285 is ideal   */
+  background-color: #fff;
+
+  padding: 5px, 5px, 5px, 5px; 
+  margin: 5px, 5px, 5px, 5px; 
+}
+
+
+.wrapper > img {
+  image-rendering: center;
+  width: 400px;
+  padding-bottom: 0%;
+  margin-bottom: 0%;
+}
+
+.wrapper > div {
+  /* background: #eee; */
+  /* padding:1em; */
+}
+.wrapper > div:nth-child(odd) {
+  /* background: #ddd; */
+}
+
+
+
+#card-list {
+  /* display: flex;
+  flex-flow: row wrap;  
+  flex-basis: auto;
+  /* row-gap: 20px; */
+  /* grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  grid-gap: 200px; */
+  /* padding: 0, 0, 20px, 0;
+  margin: 20px; */
+  /* justify-items: center; */
+}
+
+.card {
+  /* display: flex;
+  flex-wrap: wrap; */
+  /* margin-left: 8;
+    margin-top: 8; */
+  /* align-items: left;
+  padding: 0, 0, 20px, 0;
+  margin: 20px;
+  row-gap: 20px; */
+  /* grid-column-gap: 20px;
+	grid-row-gap: 20px; */
+}
+
+
+
+.horizontalLine {
+  width: auto;
+  height: 1px;
+  padding-top: 2px;
+  margin-top: 2px;
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+  background-color: silver;
+}
+
+.coralColor {
+  font-family: "Segoe UI";
+  font-size: 16px;
+  color: #5c5c5c;
+  white-space: wrap;
+  font-weight: 400;
+  /* margin-top: 400px; */
+  padding: auto;
+  text-align: left; /* critical */
+}
+
+p {
+  font-family: "Segoe UI";
+  font-weight: 600;
+  /* padding-left: 12px; */
+  margin-top: 1px;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+}
+
+
+.moreWeight {
+  font-family: "Segoe UI";
+  font-weight: 800;
+  padding-left:4px;
+}
+
+.muchMoreWeight {
+  font-family: "Segoe UI";
+  font-weight: 1000;
+  padding-left: 0px;
+  font-size: 24px;
+  color: black;
+}
+
+.tempImage {
+  width: 53px;
+  position: relative;
+  top: 2px;
+  margin-left: 10px;
+}
+
+.notMuchMoreWeight {
+  font-family: "Segoe UI";
+  font-weight: 500;
+  padding-left: 0px;
+  font-size:16px;
+  color: black;
+}
+
+.floatRight {
+  float: right;
+}
+
+.textAlignRight {
+  text-align: center;
+    font-weight:bold;
+    margin-top: 0;
+    width: 200;
+}
+
+.signIn {
+  font-family: "Segoe UI";
+  font-weight: 100;
+  padding-left: 8px;
+}
+
+.lessWeight {
+  font-family: "Segoe UI";
+  font-weight: 100;
+  padding-left: 4px;
+}
+
+h1 {
+  font-family: "Segoe UI";
+  color: #5c5c5c;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 50px;
+  margin-bottom: 50px;
+}
+
+h3 {
+  font-family: "Segoe UI";
+  color: #5c5c5c;
+  font-weight: 3000;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.black {
+  color: #5c5c5c;
+  /* align-self: flex-end; */
+  text-align: center;
+}
+
+.thumbnail {
+  background-color: rgb(233,236,239);
+  margin-top:10px;
+}
+
+.divAlign {
+  /* display: flex;
+  flex-direction: column; */
+}
+
+.divAlign1 {
+  /* flex: 1; */
+}
+
+.divAlign1 p {
+  /* flex: 1; */
+}
+
+.buttonWidth {
+  flex: 1;
+}
+
+.buttonWidth button {
+  /* flex: 1; */
+  min-width: 100%;
+  font-family: "Segoe UI";
+  font-weight: 700;
+  display: block;
+  width: 100%;
+ 
+  /* align-items: flex-end; */
+}
+
+.buttonPrimary {
+  font-family: "Segoe UI";
+  font-weight: 3000;
+  align-items: center;
+  margin-left: 45%; /*USEFUL: Aligns button to centre  */
+}
+
+.buttonPrimary2 {
+  font-family: "Segoe UI";
+  font-weight: 3000;
+  align-items: center;
+  margin-left: 30%; 
+  /* USEFUL: Aligns button to centre  */
+}
+
+.redColor {
+  color: #ff0000;
+  font-weight: bold;
+  font-size: large;
+}
+
+.purpleColor {
+  color: purple;
+  font-weight: bold;
+  font-size: large;
+}
+
+.kegDetail {
+  /* display: grid; 
+  width: 100vw; 
+  grid-column-start: 0; 
+  grid-column-end: 110; 
+  grid-template-columns: 1fr 0px;
+  left: 0px;    */
+
+
+
+
+   /* position: absolute; */
+  /* float: left; */
+ 
+  /* font-family: "Indie Flower", cursive;
+  text-align: left;
+  font-weight: 700;
+  display: flex;
+  /* flex-direction: column; */
+  /* width: 700px;
+  height: 900px; */
+  /* border: 2px lightgrey solid; */
+  border-radius: 5px;
+  /* box-shadow: 3px 3px 3px 0 lightgrey; */
+  margin: 10px auto 10 auto;
+  /* align-items: left;
+  justify-content: center;
+  padding: 0, 0, 20px, 0; */
+}
+
+.carDetailButton {
+  text-align:center;
+  /* margin: 0 auto;   */
+   /* (centers elements) */
+   /* display: block;  */
+    /* (starts on a new line and stretches out to the left and right as much as it can)  */
+   /* width: 20%;  */
+
+
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* margin: 0px 0px 0px 0px; */
+  /* margin-right: 10px;
+  margin-left: 10px; */
+  /* justify-content: space-between; combined with "flex-basis: 40%;" in child creates gap between buttons */
+}
+
+.blackBg {
+  /* background-color: black; */
+  /* width: 100%; */
+}
+
+
+
+.kegDetailButton button {
+  /* flex-basis: 40%; */
+}
+
+.reUsableKegForm {
+  font-family: "Segoe UI";
+  text-align: left;
+  font-weight: 700;
+  /* display: flex; */
+  /* flex-direction: column; */
+  width: 300px;
+  height: auto;
+  border: 2px lightgrey solid;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px 0 lightgrey;
+  margin: 10px auto 10 auto;
+  align-items: left;
+  justify-content: center;
+  padding: 20px;
+  /* display: flex; */
+  align-items: left;
+  justify-content: stretch;
+}
+
+.btn {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.reUsableKegForm input {
+  /* display: flex; */
+  /* flex-direction: row; */
+  margin: 0px 0px 0px 0px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  margin-left: 10px;
+  justify-content: space-between;
+}
+
+.reUsableKegForm button {
+  /* flex-basis: 40%; */
+  /* flex: 1; */
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.reUsableKegFormh2 {
+  font-family: "Segoe UI";
+  color: coral;
+  font-weight: 700;
+  margin: auto;
+  padding: auto;
+  text-align: center; /* critical */
+  font-weight: 3000;
+  margin-bottom: 10px;
+}
+
+.reUsableCarFormh2 {
+  font-family: "Segoe UI";
+  color: coral;
+  font-weight: 700;
+  margin: auto;
+  padding: auto;
+  text-align: center; /* critical */
+  font-weight: 3000;
+  margin-bottom: 10px;
+}
+
+.navBar {
+  -webkit-tap-highlight-color: transparent;
+  font-family: "Calibre-Regular";
+  font-size: 16px;
+  line-height: 1.5rem;
+  -webkit-font-smoothing: antialiased;
+  color: #e7131a;
+  fill: rgb(4, 16, 34);
+  box-sizing: inherit;
+  margin-right: 30px;
+  height: 18px;
+  width: 104.4px;
+  overflow: hidden;
+  margin: 0;
+  background-color: #f5f5f5;
+}
+
+
+
+.backGround {
+ /* background-color: black; */
+/* padding-bottom: 200px; */
+
+}
+.image {
+  width: calc(100vh - 100px); 
+   height: calc(100vh -100px);
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   width: 50%;   /* critical -salim */
+   padding:auto;
+   padding-top: 60px;
+
+   /* max-width: 100%;
+   max-height: 100%; */
+   /* display: block; *//*remove extra space below image */
+
+
+  /* width: 640px; window is fixed so increating this does not have an effect */
+  /* margin: 0 auto;  */
+}
+.enlarged {
+  max-height: none;
+}
+
+.centerScreen {
+  /* display: flex; */
+  /* justify-content: center;
+  image-rendering: center;
+  vertical-align: middle; */
+  /* width: 1050; */
+  /* background-color: white;  */
+}
+
+.justifyText {
+    text-align: justify;
+}
+
+.marginTop {
+    margin-top: 47px;
+}
+
+.width-175px{
+  width: 175px;
+  display: inline-block;
+  text-align: center;
+
+}
+
+.lotOfMarginTop {
+  margin-top: 100px;
+}
+.marginTop2 {
+    margin-top: 10px;
+}
+.navBarRed {
+  font-family: "Segoe UI";
+  /* font-weight: 100; */
+  color: #e7131a;
+}
+
+.footer {
+  display: grid;
+  position: absolute;
+  width: 100vw; 
+  grid-column-start: 0; 
+  grid-column-end: 0; 
+  grid-template-columns: 1fr 0px;
+  left: 0px;   /* //effective */
+  padding-left: 0px;
+  background-color: rgb(0, 0, 0);
+  color: rgb(153, 157, 163);
+}
+
+.footerApp {
+  position:absolute; 
+}
+.footerAlt {
+  /* position:absolute; */
+  /* background-color:#d6d7da; */
+  font-size: 14px;
+  padding-right: 0px;
+  padding-left: 0px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  color: white;
+}
+/* 
+body > footer {
+  margin: 0px;
+  padding: 0px;
+  min-width: 100%;
+  max-width: 100%;
+  background: #ffffff;
+  height: auto;
+} */
+
+.padding {
+  padding: 10px;
+  /* margin: 20px; */
+}
+
+.paddingRightLeft {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.morePadding {
+  padding-left: 16px;
+  /* margin: 20px; */
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.lotsOfMargin {
+  margin-bottom: 210px;
+}
+
+a:link {
+  color: blue;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: green;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: pink;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.alignLeft {
+  text-align: left;
+  padding-top: 10px;
+}
+
+
+.tab-list {
+  border-bottom: 1px solid #ccc;
+  padding-left: 0;
+}
+
+.tab-list-item {
+  display: inline-block;
+  list-style: none;
+  margin-bottom: -1px;
+  padding: 0.5rem 0.75rem;
+}
+
+.tab-list-active {
+  background-color: white;
+  border: solid #ccc;
+  border-width: 1px 1px 0 1px;
+}
+
+.lotOfMarginBottom  {
+  /* margin-top: 100px; */
+  margin-bottom: 200px;
+}
+
+.Logo {
+  background-image: url(./landingPage.jpg);
+}

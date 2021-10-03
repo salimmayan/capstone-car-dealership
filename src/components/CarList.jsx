@@ -6,41 +6,37 @@ import { useSelector } from 'react-redux';
 import { useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
 
-function CarList(props){
+function CarList(props) {
   // The useFirestoreConnect() hook comes from react-redux-firebase.
   useFirestoreConnect([
-    { collection: 'Cars' }
+    { collection: 'car' }
   ]);
 
   // The useSelector() hook comes from react-redux.
-  const cars = useSelector(state => state.firestore.ordered.Cars);
+  const cars = useSelector(state => state.firestore.ordered.car);
   console.log("Car List component: cars are ");
   console.log(cars);
   // react-redux-firebase also offers a useful isLoaded() function.
   if (isLoaded(cars)) {
     return (
       <React.Fragment>
-        <h1>Car List component</h1>
-        <hr/>
-        {cars.map((car) => {
-          return <Car
-            whenCarClicked = { props.onCarSelection }
-            carModel={car.carModel}
-            Miles={car.Miles}
-            Trim={car.Trim}
-            Price={car.Price}
-            Year={car.Year}
-            BodyType={car.BodyType}
-            Exterior={car.Exterior}
-            MPG={car.MPG}
-            Transmission={car.Transmission}
-            VIN={car.VIN}
-            Features={car.Features}
-            key={car.timeOpen}/>
-        })}
+        <div className="wrapperNew">
+          {/* <h1>Car List component</h1> */}
+          {cars.map((currentCar) => {
+            return <Car
+              whenCarClicked={props.onCarSelection}
+              ImageURL={currentCar.ImageURLs[0].value}
+              Miles={currentCar.Miles}
+              Make={currentCar.Make}
+              Trim={currentCar.Trim}
+              Price={currentCar.Price}
+              Year={currentCar.Year}
+              key={currentCar.timeOpen} />
+          })}
+        </div>
       </React.Fragment>
     );
-  // If the cars aren't loaded yet, our fragment will return a "Loading..." message.
+    // If the cars aren't loaded yet, our fragment will return a "Loading..." message.
   } else {
     return (
       <React.Fragment>

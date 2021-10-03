@@ -1,29 +1,41 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Car(props){
+const myStyledComponentStyles = {
+  backgroundColor: "#ecf0f1",
+  fontFamily: "Segoe UI",
+  paddingRight: "0px",
+  paddingBottom: "0px",
+  marginBottom: "0px",
+  marginLeft: "0px",
+  maxWidth: "100%",
+  height: "auto",
+  paddingLeft: "4px",
+  // wdth: "100%",
+};
+
+function Car(props) {
   return (
     <React.Fragment>
-      <div onClick = {() => props.whenCarClicked(props.id)}>
-        <h3>{props.carModel} - {props.Miles}</h3>
-   
+      <div onClick={() => props.whenCarClicked(props.id)}>
+        {/* <h3>{props.Make} - {props.Miles}</h3> */}
+        <div onClick={() => props.onCarSelection(props.id)}>
+          <div className="thumbnail">
+            {/* <img style={myStyledComponentStyles} src={props.ImageURLs[0].value} alt=""></img> */}
+            <img style={myStyledComponentStyles} src={props.ImageURL} alt=""></img>
+            <p className="moreWeight">
+              {props.Year} {props.Make} {props.Model}
+            </p>
+            <p className="lessWeight">
+              {props.Trim} | {props.Miles.toLocaleString()}{" "}
+              miles
+            </p>
+            <p className="moreWeight">
+              ${props.Price.toLocaleString()}
+            </p>
+          </div>
+        </div>
       </div>
-
-      {/* whenCarClicked = { props.onCarSelection }
-            carModel={car.carModel}
-            Miles={car.Miles}
-            Trim={car.Trim}
-            Price={car.Price}
-            Year={car.Year}
-            BodyType={car.BodyType}
-            Exterior={car.Exterior}
-            MPG={car.MPG}
-            Transmission={car.Transmission}
-            VIN={car.VIN}
-            Features={car.Features}
-            key={car.timeOpen}/> */}
-
-      <hr/>
     </React.Fragment>
   );
 }

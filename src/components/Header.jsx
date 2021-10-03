@@ -8,21 +8,22 @@ const HelpQueueHeader = styled.h1`
   color: blue;
 `;
 
+
 function Header(){
   return (
     <React.Fragment>
-        <HelpQueueHeader>
-          Help Queue2
-        </HelpQueueHeader>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/signin">Sign In</Link>
-          </li>
-        </ul>
-    </React.Fragment>
+    <HelpQueueHeader>
+      CONSOLIDATED CARS -HEADER COMPONENT
+    </HelpQueueHeader>
+    <ul>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/signin">Sign In</Link>
+      </li>
+    </ul>
+</React.Fragment>
   );
 }
 

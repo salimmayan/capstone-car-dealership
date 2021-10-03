@@ -1,58 +1,189 @@
-import React from "react";
-// import { v4 } from 'uuid';
-import PropTypes from "prop-types";
-import ReusableForm from "./ReusableForm";
-// import Moment from 'moment';
-import { useFirestore } from 'react-redux-firebase'
+import firebase from "../firebase";
+import React, { useState } from "react";
+import { useFirestore } from "react-redux-firebase";
+import { withFirestore, isLoaded } from "react-redux-firebase"; //"isLoaded" is authrization related
+import { v4 } from "uuid";
 
-function NewCarForm(props) {
+const db = firebase.firestore();
+
+function NewCarForm() {
   const firestore = useFirestore();
+  const [fileUrl, setFileURLs] = React.useState([]);
+  const [uuID, setUuID] = React.useState();
+  const [imgURLs, setImageURLs] = React.useState([]);
+  const [updated, setUpdate] = React.useState(false);
 
-  // function handleNewCarFormSubmission(event) {
-  function addCarToFirestore(event) {
-    event.preventDefault();
-    // props.onNewCarCreation({
-    // names: event.target.names.value, 
-    // location: event.target.location.value, 
-    // issue: event.target.issue.value, 
-    // id: v4(),  
-    // timeOpen: new Moment(),
-    // formattedWaitTime: new Moment().fromNow(true)});
-    props.onNewCarCreation();
-
-    // Here's how we will actually add a Car to Firestore.
-
-    return firestore.collection('Cars').add(
+  const addImageURL = (toAdd) => {
+    setImageURLs([
+      ...imgURLs,
       {
-        carModel: event.target.carModel.value,
-        Miles: event.target.Miles.value,
-        Trim: event.target.Trim.value,
-        Price: event.target.Price.value,
-        Year: event.target.Year.value,
-        BodyType: event.target.BodyType.value,
-        Exterior: event.target.Exterior.value,
-        MPG: event.target.MPG.value,
-        Transmission: event.target.Transmission.value,
-        VIN: event.target.VIN.value,
-        Features: event.target.Features.value,
-        timeOpen: firestore.FieldValue.serverTimestamp()
-      }
-    );
+        id: imgURLs.length,
+        value: toAdd,
+      },
+    ]);
+  };
+
+  const emptyImageURL = () => {
+    setImageURLs([]);
+  };
+
+  const addFileURL = (toAdd2) => {
+    setFileURLs([
+      ...fileUrl,
+      {
+        id: fileUrl.length,
+        value: toAdd2,
+      },
+    ]);
+  };
+
+  const printValues = (e) => {
+    // e.preventDefault();
+    // console.log("SALIM!!!: Inside printValues");
+    // console.log(imgURLs, users);
+  };
+
+  function addNonImageFieldToFirestore(id) {
+    emptyImageURL();
   }
+
+  const onFileChange = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = firebase.storage().ref();
+    const fileRef = storageRef.child(file.name);
+    await fileRef.put(file);
+    addImageURL(await fileRef.getDownloadURL());
+    // console.log("SALIM!!!!:imgURLs ");
+    // console.log(imgURLs);
+    printValues();
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const uuIDTicket = {};
+    uuIDTicket.id = v4();
+    setUuID(uuIDTicket.id);
+    const carMake = e.target.carMake.value;
+    const carModel = e.target.carModel.value;
+    const Miles = e.target.Miles.value;
+    const Trim = e.target.Trim.value;
+    const Price = e.target.Price.value;
+    const Year = e.target.Year.value;
+    const BodyType = e.target.BodyType.value;
+    const Engine = e.target.Engine.value;
+    const Exterior = e.target.Exterior.value;
+    const MPG = e.target.MPG.value;
+    const Transmission = e.target.Transmission.value;
+    const VIN = e.target.VIN.value;
+    const Features = e.target.Features.value;
+
+    if (!carMake || !fileUrl || !carModel || !Miles || !Trim || !Price || !Year || !Features) {
+      return;
+    }
+    await db.collection("car").doc(uuIDTicket.id).set({
+      //"car" is the name of collection
+      ImageURLs: imgURLs,
+      Make: carMake,
+      Model: carModel,
+      Miles: Miles,
+      Price: Price,
+      Trim: Trim,
+      Year: Year,
+      Basics: {
+        BodyType: BodyType,
+        Engine: Engine,
+        Exterior: Exterior,
+        MPG: MPG,
+        Transmission: Transmission,
+        VIN: VIN,
+      },
+      // BodyType: BodyType,
+      // Engine: Engine,
+      // Exterior: Exterior,
+      // MPG: MPG,
+      // Transmission: Transmission,
+      // VIN: VIN,
+      Features: Features,
+    });
+
+    for (var i = 0; i < 12; i++) {
+      document.getElementsByClassName("clearFileFieldOnSubmit")[i].value = "";
+    }
+
+    addNonImageFieldToFirestore(uuID);
+    // console.log("SALIM!!!carMake:imgExtURL:imgURLs::" + carMake + ":" + imgExtURL + ":" + imgURLs);
+  };
+
+  function handleSetUpdate() {
+    console.log("inside handleSetUpdate");
+    setUpdate(true);
+  }
+
+  if (updated) {
+    window.location = '/'; // redirects to home page
+    setUpdate(false);
+  }
+
+  const handleClose = (e) => {
+    handleSetUpdate(); // e.target.id; (returns Id of button)
+  }
+
+
 
   return (
     <React.Fragment>
-      <h1>I am in NewCarform</h1>
-      <ReusableForm
-        // formSubmissionHandler={handleNewCarFormSubmission}
-        formSubmissionHandler={addCarToFirestore}
-        buttonText="Help!" />
+        <br></br> <br></br> <br></br>
+      <div className="reUsableCarFormh2">
+        <h2>Create New Record</h2>
+      </div>
+      <div className="jumbotron">
+        <form onSubmit={onSubmit}>
+          <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
+          <br></br> <br></br>
+          <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
+          <br></br> <br></br>
+          <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
+          <br></br> <br></br>
+          <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
+          <br></br> <br></br>
+          <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="carMake" placeholder="Make" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="carModel" placeholder="Model" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Year" placeholder="Year" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Trim" placeholder="Trim" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Miles" placeholder="Miles" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Price" placeholder="Price" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="BodyType" placeholder="Body Type" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Engine" placeholder="Engine" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Exterior" placeholder="Exterior" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="MPG" placeholder="MPG" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Transmission" placeholder="Transmission" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="VIN" placeholder="VIN" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Features" placeholder="Features (Comma separated)" />
+          <br></br> <br></br>
+          <div className= "container"> 
+          <div className="buttonPrimary2">
+            <button style ={{marginLeft: "50px"}} className="btn btn-warning" >Create New Car</button>
+            <button id="close" style ={{marginLeft: "50px"}} className="btn btn-primary" type="reset" onClick={handleClose}>Close Form</button>
+          </div>
+          </div>
+        </form>
+      </div>
     </React.Fragment>
   );
 }
-
-NewCarForm.propTypes = {
-  onNewCarCreation: PropTypes.func
-};
 
 export default NewCarForm;
