@@ -143,8 +143,10 @@ console.log("Doc selectedCar is ");
         console.log("INSIDE SLECTEDCAR BLOCK");
         console.log(this.state.selectedCar);
         // currentVisibleForm = <SlideShow selectedCar={this.state.selectedCar} />
-        // renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickingDelete={this.handleDeletingKeg} onClickingEdit={this.handleEditClick} />
+        // 
         currentVisibleForm = <ImageSlider slideImages={this.state.selectedCar} />
+        renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickingDelete={this.handleDeletingKeg} onClickingEdit={this.handleEditClick} />
+        
         buttonText = "Return to car List";
         // } else if (this.state.formVisibleOnPage) {
       } else if (this.props.formVisibleOnPage) {

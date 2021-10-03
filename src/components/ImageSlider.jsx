@@ -45,8 +45,6 @@ function ImageSlider(props) {
                         key={index}
                     >
                         {index === current && (
-                            //   <img src={props.selectedCar.ImageURLs[1].value} alt="" className="image"></img>
-                            // <img src={slide.image} alt='Car image' className='image' />
                             <img src={slide.image} alt='Car image' className='image' />
                         )}
                     </div>
