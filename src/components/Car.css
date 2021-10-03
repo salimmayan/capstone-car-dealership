@@ -106,6 +106,19 @@ display: block; /* remove extra space below image */
   grid-template-columns : repeat(5,1fr);
 }
 
+.main-footer {
+  color: white;
+  background-color: black;
+  padding-top: 0.5em;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.anchorTagColor {
+    color: white;
+    background-color: black;
+}
 .container {
   /* display: grid; */
   /* gap: 50px;

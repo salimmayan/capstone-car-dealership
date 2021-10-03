@@ -37,8 +37,9 @@ function App() {
           </Route> */}
         </Switch>
       </main>
-      <FooterPage />
+     
     </div>
+    <FooterPage />
   </Router>
   );
 }
