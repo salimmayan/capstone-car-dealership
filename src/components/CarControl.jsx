@@ -44,14 +44,22 @@ class CarControl extends Component {
   handleChangingSelectedCar = (id) => {
     console.log("Doc ID is ");
     console.log(id);
-    const fireStoreSelectedCar = this.props.firestore.get({ collection: 'car', doc: id });
+    // const fireStoreSelectedCar = this.props.firestore.get({ collection: 'car', doc: id });
+    // console.log("Doc fireStoreSelectedCar is ");
+    // console.log(fireStoreSelectedCar);
+
+    const selectedCar = this.state.masterCarList.filter(
+      (car) => car.id === id
+    )[0];
+console.log("Doc selectedCar is ");
+    console.log(selectedCar);
       // const firestoreCar = {
       //   names: ticket.get("names"),
       //   location: ticket.get("location"),
       //   issue: ticket.get("issue"),
       //   id: ticket.id
       // }
-      this.setState({ selectedTicket: fireStoreSelectedCar });
+      this.setState({ selectedCar: selectedCar });
   }
 
   handleEditClick = () => {
@@ -73,7 +81,7 @@ class CarControl extends Component {
   handleDeletingCar = (id) => {
     this.props.firestore.delete({ collection: 'car', doc: id });
     this.setState({ masterCarList: this.props.firestore.get({ collection: 'car', doc: id })   });
-    this.setState({ selectedTicket: null });
+    this.setState({ selectedCar: null });
   };
 
   componentDidMount() {
@@ -99,6 +107,7 @@ class CarControl extends Component {
 
   render() {
     const auth = this.props.firebase.auth();
+    let renderForm = null;
     if (!isLoaded(auth)) {  //check to see if the auth state has been loaded or not. If it hasn't, our help queue will render Loading....
       return (
         <React.Fragment>
@@ -124,20 +133,23 @@ class CarControl extends Component {
       let currentVisibleForm = null;
       let buttonText = null;
       if (this.state.editing) {
+        console.log("INSIDE EDITING BLOCK");
         currentVisibleForm = <EditCarForm car={this.state.selectedCar} onEditCar={this.handleAddingNewCarToList}  />
         buttonText = "Return to Car List";
       } else if (this.state.selectedCar != null) {
-        currentVisibleForm =
-          <CarDetail
-            carDetail={this.state.selectedCar}
-            onClickingDelete={this.handleDeletingCar}
-            onClickingEdit={this.handleEditClick} />
+        // currentVisibleForm =<CarDetail carDetail={this.state.selectedCar} onClickingDelete={this.handleDeletingCar} onClickingEdit={this.handleEditClick} />
+        console.log("INSIDE SLECTEDCAR BLOCK");
+        console.log(this.state.selectedCar);
+        currentVisibleForm = <SlideShow selectedCar={this.state.selectedCar} />
+        renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickingDelete={this.handleDeletingKeg} onClickingEdit={this.handleEditClick} />
         buttonText = "Return to car List";
         // } else if (this.state.formVisibleOnPage) {
       } else if (this.props.formVisibleOnPage) {
+        console.log("INSIDE formVisibleOnPage BLOCK");
         currentVisibleForm = <NewCarForm onNewCarCreation={this.handleAddingNewCarToList} />;
         buttonText = "Return to Car List";
       } else {
+        console.log("INSIDE NO CONDITION BLOCK");
         // currentVisibleForm = <CarList CarList={this.state.masterCarList} onCarSelection={this.handleChangingSelectedCar} />;
         currentVisibleForm = <CarList onCarSelection={this.handleChangingSelectedCar} />;
         buttonText = "Add Car";
@@ -150,6 +162,7 @@ class CarControl extends Component {
           <br></br>
           <br></br>
           </div>
+          {renderForm}
           <button onClick={this.handleClick}>{buttonText}</button>
      
           

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
+import PropTypes from "prop-types";
 
 import "slick-carousel/slick/slick-theme.css";
 
@@ -66,14 +67,14 @@ function SlideShow(props) {
   return (
     <React.Fragment>
       {/* <br></br><br></br>  <br></br><br></br>  <br></br><br></br>  <br></br><br></br> */}
-
+    <h1>SLIDE SHOW COMPOENENT</h1>
       <div className="marginTop2">
         {/* <div> */}
 
         <div className="thumbnail">
           <Wrapper>
             <Slider
-              speed={500}
+              speed={100}
               slidesToShow={1}
               slidesToScroll={1}
               dots={true}
@@ -84,19 +85,19 @@ function SlideShow(props) {
             >
 
               <Page>
-                <img src={selectedCar.ImageURLs[0].value} alt="" className="image"></img>
+                <img src={props.selectedCar.ImageURLs[0].value} alt="" className="image"></img>
               </Page>
               <Page>
-                <img src={selectedCar.ImageURLs[1].value} alt="" className="image"></img>
+                <img src={props.selectedCar.ImageURLs[1].value} alt="" className="image"></img>
               </Page>
               <Page>
-                <img src={selectedCar.ImageURLs[2].value} alt="" className="image"></img>
+                <img src={props.selectedCar.ImageURLs[2].value} alt="" className="image"></img>
               </Page>
               <Page>
-                <img src={selectedCar.ImageURLs[3].value} alt="" className="image"></img>
+                <img src={props.selectedCar.ImageURLs[3].value} alt="" className="image"></img>
               </Page>
               <Page>
-                <img src={selectedCar.ImageURLs[4].value} alt="" className="image"></img>
+                <img src={props.selectedCar.ImageURLs[4].value} alt="" className="image"></img>
               </Page>
             </Slider>
           </Wrapper>
@@ -106,5 +107,11 @@ function SlideShow(props) {
     </React.Fragment>
   );
 }
+
+SlideShow.propTypes = {
+  // carList: PropTypes.array,
+  // carList: PropTypes.object,
+  selectedCar: PropTypes.object
+};
 
 export default SlideShow;

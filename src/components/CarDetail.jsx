@@ -6,16 +6,16 @@ function CarDetail(props){
   
   return (
     <React.Fragment>
-      <h1>Car Detail</h1>
-      <h3>{carDetail.Year}</h3>
-      <h3>{carDetail.Price}</h3>
-      <h3>{carDetail.id}</h3>
-      <h3>{carDetail.Basics.BodyType}</h3>
-      <h3>{carDetail.Features}</h3>
-      <img src={carDetail.ImageURLs[0].value} alt=""></img>
-      <button onClick={ onClickingEdit }>Update Car</button>
+      {/* <h1>Car Detail COMPOENENT</h1> */}
+      {/* <h3>{props.selectedCar.Year}</h3>
+      <h3>{props.selectedCar.Price}</h3>
+      <h3>{props.selectedCar.id}</h3>
+      <h3>{props.selectedCar.Basics.BodyType}</h3>
+      <h3>{props.selectedCar.Features}</h3> */}
+      <img src={props.selectedCar.ImageURLs[0].value} alt=""></img>
+      <button onClick={ props.onClickingEdit }>Update Car</button>
       {/* <button onClick={()=> onClickingDelete(carDetail.id) }>Delete Car</button> */}
-      <button onClick={()=> onClickingDelete(carDetail.id) }>Delete Car</button>
+      <button onClick={()=> props.onClickingDelete(props.selectedCar.id) }>Delete Car</button>
       
       <hr/>
     </React.Fragment>
@@ -23,7 +23,7 @@ function CarDetail(props){
 }
 
 CarDetail.propTypes = {
-  carDetail: PropTypes.object,
+  selectedCar: PropTypes.object,
   onClickingDelete: PropTypes.func,
   onClickingEdit: PropTypes.func
 };
