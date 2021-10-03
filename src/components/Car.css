@@ -107,9 +107,14 @@ display: block; /* remove extra space below image */
 }
 
 .container {
-  display: grid;
+  /* display: grid; */
   /* gap: 50px;
   height: 100vh; */
+  margin-top:0%;
+  padding-top: 0%;
+  margin-bottom: 10px;
+  
+    background-color: silver;
 }
 
 .KegCard2 {
@@ -668,16 +673,19 @@ a:active {
 
 .slider {
   position: relative;
-  height: 100vh;
+  height: 85vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 0%;
+  padding-top: 0%;
 }
 
 .image {
-  width: 1000px;
-  height: 800px;
+  width: 900px;
+  height: 700px;
   border-radius: 10px;
+  padding-top: 0%;
 }
 
 .right-arrow {

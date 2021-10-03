@@ -13,6 +13,7 @@ import LandingPage from './LandingPage';
 import firebase from "../firebase";
 import ImageSlider from './ImageSlider';
 import { Container, Row, Col } from 'react-bootstrap';
+import FooterPage from './FooterPage';
 
 class CarControl extends Component {
 
@@ -160,7 +161,8 @@ console.log("Doc selectedCar is ");
         buttonText = "Add Car";
       }
       return (
-        <div>
+        <React.Fragment>
+        <div className ="container">
           {/* <div className="container"> */}
             <Container>
           {/* <h1>I am in Carcontrol</h1> */}
@@ -171,10 +173,11 @@ console.log("Doc selectedCar is ");
           {renderForm}
           </Container>
           {/* </div> */}
-          <button onClick={this.handleClick}>{buttonText}</button>
-     
+          <button onClick={this.handleClick}>{buttonText}</button>        
           
         </div>
+         {<FooterPage />}
+         </React.Fragment>
       );
     }
 
