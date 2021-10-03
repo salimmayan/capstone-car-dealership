@@ -9,8 +9,9 @@ import * as a from './../actions'; // "actions" is a folder and not a file???
 import { withFirestore, isLoaded } from 'react-redux-firebase';
 import { makeApiCall } from './../actions';
 import LandingPage from './LandingPage';
-import SlideShow from './SlideShow';
+// import SlideShow from './SlideShow';
 import firebase from "../firebase";
+import ImageSlider from './ImageSlider';
 
 class CarControl extends Component {
 
@@ -140,8 +141,9 @@ console.log("Doc selectedCar is ");
         // currentVisibleForm =<CarDetail carDetail={this.state.selectedCar} onClickingDelete={this.handleDeletingCar} onClickingEdit={this.handleEditClick} />
         console.log("INSIDE SLECTEDCAR BLOCK");
         console.log(this.state.selectedCar);
-        currentVisibleForm = <SlideShow selectedCar={this.state.selectedCar} />
-        renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickingDelete={this.handleDeletingKeg} onClickingEdit={this.handleEditClick} />
+        // currentVisibleForm = <SlideShow selectedCar={this.state.selectedCar} />
+        // renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickingDelete={this.handleDeletingKeg} onClickingEdit={this.handleEditClick} />
+        currentVisibleForm = <ImageSlider slides={SliderData} />
         buttonText = "Return to car List";
         // } else if (this.state.formVisibleOnPage) {
       } else if (this.props.formVisibleOnPage) {

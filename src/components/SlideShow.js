@@ -1,10 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import PropTypes from "prop-types";
-
-import "slick-carousel/slick/slick-theme.css";
 
 // import { baseUrl } from "./config";
 import "slick-carousel/slick/slick.css";
@@ -67,14 +63,14 @@ function SlideShow(props) {
   return (
     <React.Fragment>
       {/* <br></br><br></br>  <br></br><br></br>  <br></br><br></br>  <br></br><br></br> */}
-    <h1>SLIDE SHOW COMPOENENT</h1>
+
       <div className="marginTop2">
         {/* <div> */}
 
         <div className="thumbnail">
           <Wrapper>
             <Slider
-              speed={100}
+              speed={500}
               slidesToShow={1}
               slidesToScroll={1}
               dots={true}
@@ -108,10 +104,8 @@ function SlideShow(props) {
   );
 }
 
-SlideShow.propTypes = {
-  // carList: PropTypes.array,
-  // carList: PropTypes.object,
-  selectedCar: PropTypes.object
-};
-
 export default SlideShow;
+
+
+
+  {/* <img src={props.selectedCar.ImageURLs[{num}].value} alt="" className="image"></img> */}
