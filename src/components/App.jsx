@@ -36,10 +36,14 @@ function App() {
             <LogOut />
           </Route> */}
         </Switch>
+        
       </main>
      
     </div>
-    <FooterPage />
+   {/* <div className="containerNew">   */}
+   <FooterPage />
+      {/* </div> */}
+   
   </Router>
   );
 }

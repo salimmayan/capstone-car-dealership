@@ -125,9 +125,17 @@ display: block; /* remove extra space below image */
   height: 100vh; */
   margin-top:5%;
   padding-top: 0%;
-  margin-bottom: 10px;
-  
+  margin-bottom: 5px;  
     background-color: silver;
+}
+
+.containerNew {
+  margin-top:1%;
+  margin-right:0%;
+  padding-right:0%;
+  padding-left:2%;
+  padding-right:2%;
+    background-color: black;
 }
 
 .KegCard2 {

@@ -17,7 +17,7 @@ function Footer() {
              <a href="https://www.youtube.com/user/DealerOnVideo" className="youtube social"> <FontAwesomeIcon icon={faYoutube} size="2x" /> </a> <br></br>
                <a href="https://www.facebook.com/dealeron/" className="facebook social"> <FontAwesomeIcon icon={faFacebook} size="2x" /> </a><br></br>
              <a href="https://twitter.com/DealerOn" className="twitter social"> <FontAwesomeIcon icon={faTwitter} size="2x" /> </a><br></br>
-              <a href="https://www.instagram.com/dealeron_inc/" className="instagram social"> <FontAwesomeIcon icon={faInstagram} size="2x" /></a><br></br>
+              <a href="https://www.instagram.com/dealeron_inc/" className="instagram social"> <FontAwesomeIcon icon={faInstagram} size="2x" /></a>
 
 
               {/* <li><a href="https://www.facebook.com/dealeron/" target="_blank" rel="noopener noreferrer" className="padding fa fa-facebook anchorTagColor"> </a>   </li>
