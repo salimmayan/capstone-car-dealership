@@ -34,7 +34,7 @@ class CarControl extends Component {
       // error: null,
       // isLoaded: false,
       // headlines: [],
-      pageSize: 3,
+      pageSize: 4,
       currentPage: 1,
       loggedIn: true,
 
@@ -126,6 +126,7 @@ class CarControl extends Component {
 
   render() {
     const auth = this.props.firebase.auth();
+    let currentVisibleForm = null;
     let renderForm = null;
     const paginationCarArray = this.paginateFunction(
       this.state.masterCarList,
@@ -133,76 +134,88 @@ class CarControl extends Component {
       this.state.pageSize
     );
 
-    if (!isLoaded(auth)) {  //check to see if the auth state has been loaded or not. If it hasn't, our help queue will render Loading....
-      return (
-        <React.Fragment>
-          <h1>Loading...</h1>
-        </React.Fragment>
-      )
+    // if (!isLoaded(auth)) {  //check to see if the auth state has been loaded or not. If it hasn't, our help queue will render Loading....
+    //   return (
+    //     <React.Fragment>
+    //       <h1>Loading...</h1>
+    //     </React.Fragment>
+    //   )
+    // }
+    // if ((isLoaded(auth)) && (auth.currentUser == null)) { //If auth.currentUser is null, we know that the client isn't signed in. We'll return a message that says a user must be signed in to access the queue.
+    //   return (
+    //     <React.Fragment>
+    //       <h1>You must be signed in to access the queue.</h1>
+    //     </React.Fragment>
+    //   )
+    // }
+    // if ((isLoaded(auth)) && (auth.currentUser != null)) {
+
+    //   console.log("render called! - currentVisibleForm:SelectedCar:Editing:FormVisibleOnPage::::");
+    //   console.log(this.state.currentVisibleForm);
+    //   console.log(this.state.selectedCar);
+    //   console.log(this.state.editing);
+    //   console.log(this.props.formVisibleOnPage);
+
+    //   let currentVisibleForm = null;
+    //   let buttonText = null;
+    //   if (this.state.editing) {
+    //     console.log("INSIDE EDITING BLOCK");
+    //     currentVisibleForm = <EditCarForm car={this.state.selectedCar} onEditCar={this.handleAddingNewCarToList} />
+    //     buttonText = "Return to Car List";
+    //   } else if (this.state.selectedCar != null) {
+    //     console.log("INSIDE SLECTEDCAR BLOCK");
+    //     console.log(this.state.selectedCar);
+    //     currentVisibleForm = <ImageSlider slideImages={this.state.selectedCar} />
+    //     renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickingDelete={this.handleDeletingKeg} onClickingEdit={this.handleEditClick} />
+
+    //     buttonText = "Return to car List";
+    //   } else if (this.props.formVisibleOnPage) {
+    //     console.log("INSIDE formVisibleOnPage BLOCK");
+    //     currentVisibleForm = <NewCarForm onNewCarCreation={this.handleAddingNewCarToList} />;
+    //     buttonText = "Return to Car List";
+    //   } else {
+    //     console.log("INSIDE NO CONDITION BLOCK");
+    //     currentVisibleForm = <CarList carList={paginationCarArray} onCarSelection={this.handleChangingSelectedCar} />;
+    //     renderForm = <Pagination className="pagination" itemsCount={this.state.masterCarList.length}
+    //       pageSize={this.state.pageSize}
+    //       currentPage={this.state.currentPage}
+    //       onPageChange={this.handlePageChange}
+    //     />
+    //     buttonText = "Add Car";
+    //   }
+    if (this.state.loggedIn) {
+      currentVisibleForm = (<LandingPage onSignInSuccess={this.handleOnSignInSuccess} />);
     }
-    if ((isLoaded(auth)) && (auth.currentUser == null)) { //If auth.currentUser is null, we know that the client isn't signed in. We'll return a message that says a user must be signed in to access the queue.
-      return (
-        <React.Fragment>
-          <h1>You must be signed in to access the queue.</h1>
-        </React.Fragment>
-      )
-    }
-    if ((isLoaded(auth)) && (auth.currentUser != null)) {
-
-      console.log("render called! - currentVisibleForm:SelectedCar:Editing:FormVisibleOnPage::::");
-      console.log(this.state.currentVisibleForm);
-      console.log(this.state.selectedCar);
-      console.log(this.state.editing);
-      console.log(this.props.formVisibleOnPage);
-
-      let currentVisibleForm = null;
-      let buttonText = null;
-      if (this.state.editing) {
-        console.log("INSIDE EDITING BLOCK");
-        currentVisibleForm = <EditCarForm car={this.state.selectedCar} onEditCar={this.handleAddingNewCarToList} />
-        buttonText = "Return to Car List";
-      } else if (this.state.selectedCar != null) {
-        // currentVisibleForm =<CarDetail carDetail={this.state.selectedCar} onClickingDelete={this.handleDeletingCar} onClickingEdit={this.handleEditClick} />
-        console.log("INSIDE SLECTEDCAR BLOCK");
-        console.log(this.state.selectedCar);
-        // currentVisibleForm = <SlideShow selectedCar={this.state.selectedCar} />
-        // 
-        currentVisibleForm = <ImageSlider slideImages={this.state.selectedCar} />
-        renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickingDelete={this.handleDeletingKeg} onClickingEdit={this.handleEditClick} />
-
-        buttonText = "Return to car List";
-        // } else if (this.state.formVisibleOnPage) {
-      } else if (this.props.formVisibleOnPage) {
-        console.log("INSIDE formVisibleOnPage BLOCK");
-        currentVisibleForm = <NewCarForm onNewCarCreation={this.handleAddingNewCarToList} />;
-        buttonText = "Return to Car List";
+    else if (this.state.editing) {
+      // console.log("IN RENDER() - this.state.editing ");
+      currentVisibleForm = (<EditCarForm car={this.state.selectedCar} buttonText="Update" />);
+    } else if (this.state.selectedCar != null) {
+      currentVisibleForm = <ImageSlider slideImages={this.state.selectedCar} />
+      renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickingDelete={this.handleDeletingKeg} onClickingEdit={this.handleEditClick} />
+    } else {
+      if (this.state.currentVisibleForm) {
+        currentVisibleForm = <NewCarForm />;
       } else {
-        console.log("INSIDE NO CONDITION BLOCK");
-        // currentVisibleForm = <CarList CarList={this.state.masterCarList} onCarSelection={this.handleChangingSelectedCar} />;
-        currentVisibleForm = <CarList carList={paginationCarArray} onCarSelection={this.handleChangingSelectedCar} />;
-        renderForm = <Pagination className="pagination" itemsCount={this.state.masterCarList.length}
-          pageSize={this.state.pageSize}
-          currentPage={this.state.currentPage}
-          onPageChange={this.handlePageChange}
-        />
-        buttonText = "Add Car";
+        currentVisibleForm = <CarList className="wrapperNew" carList={paginationCarArray} onCarSelection={this.handleChangingSelectedCar} />
+        renderForm = <Pagination className="pagination" itemsCount={this.state.masterCarList.length} pageSize={this.state.pageSize}
+            currentPage={this.state.currentPage} onPageChange={this.handlePageChange} />
       }
-      return (
-        <React.Fragment>
-          <div className="container">
-            <Container>
-              {currentVisibleForm}
-              <br></br>
-              <br></br>
-              {renderForm}
-            </Container>
-            <button onClick={this.handleClick}>{buttonText}</button>
-          </div>
-        </React.Fragment>
-      );
     }
-
+    return (
+      <React.Fragment>
+        <div className="container">
+          <Container>
+            {currentVisibleForm}
+            <br></br>
+            <br></br>
+            {renderForm}
+          </Container>
+          {/* <button onClick={this.handleClick}>{buttonText}</button> */}
+        </div>
+      </React.Fragment>
+    );
   }
+
 }
 
 CarControl.propTypes = {

@@ -94,7 +94,7 @@ class NavigationBar extends React.Component {
 
           </ul>
           <ul className="navbar-nav navbar-right">
-            <NavItem path="/signin" name="SignUp" />
+            {/* <NavItem path="/signin" name="SignUp" /> */}
             <NavItem path="/logout" name="LogOut" />
            
           </ul>

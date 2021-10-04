@@ -78,15 +78,14 @@ function LandingPage(props) {
 
     return (
         <React.Fragment>
-            <div className="container">
-                <div className="reUsableKegForm coralColor newWrapper thumbnail" style={{ backgroundImage: `url(${imageUrl})`, backgroundRepeat: 'no-repeat', width: '1920px', height: '1199px', color: 'white' }}>
-                    <br></br> <br></br> <br></br>
+            <div className="container2">
+                <div className="reUsableKegForm coralColor newWrapper thumbnail" style={{ backgroundImage: `url(${imageUrl})`, backgroundRepeat: 'no-repeat', width: '1920px', height: '450px', color: 'white' }}>
                     <h1 style={{ fontWeight: 20009, color: "red" }}>CONSOLIDATED CARS</h1>
                     <h3 style={{ color: "red" }}>Buy a car entirely online, and have it safely delivered, contact-free.</h3>
                     <div className="carDetailButton lotOfMarginTop">
-                        <button style={{ marginLeft: "50px" }} className="width-175px paddingRightLeft buttonPrimary btn btn-secondory" type="reset" onClick={handleSignInShow}>SignIn</button>
+                        <button style={{ marginLeft: "50px" }} className="width-175px paddingRightLeft buttonPrimary btn btn-primary" type="reset" onClick={handleSignInShow}>SignIn</button>
                         <br></br>
-                        <button id="close" style={{ marginLeft: "50px" }} className="width-175px paddingRightLeft buttonPrimary btn btn-primary" type="reset" onClick={handleSignUpShow}>SignUp</button>
+                        <button id="close" style={{ marginLeft: "50px" }} className="width-175px paddingRightLeft buttonPrimary btn btn-warning" type="reset" onClick={handleSignUpShow}>SignUp</button>
                     </div>
                 </div>
             </div>
