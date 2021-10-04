@@ -26,7 +26,7 @@ function CarList(props) {
          
         
           {/* <h1>Car List component</h1> */}
-          {cars.map((currentCar) => {
+          {props.carList.map((currentCar) => {
             return <Car
               whenCarClicked={props.onCarSelection}
               ImageURL={currentCar.ImageURLs[0].value}

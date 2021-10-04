@@ -15,6 +15,9 @@ import ImageSlider from './ImageSlider';
 import { Container, Row, Col } from 'react-bootstrap';
 import FooterPage from './FooterPage';
 import NavBar from './NavigationBar';
+import Pagination from './Pagination';
+// import Pagination from "react-bootstrap-4-pagination";
+import _ from "lodash";
 
 class CarControl extends Component {
 
@@ -31,9 +34,11 @@ class CarControl extends Component {
       // error: null,
       // isLoaded: false,
       // headlines: [],
-      pageSize: 8,
+      pageSize: 3,
       currentPage: 1,
       loggedIn: true,
+
+
     };
   }
 
@@ -45,6 +50,11 @@ class CarControl extends Component {
     }
   };
 
+  handlePageChange = (page) => {
+    this.setState({ currentPage: page });
+  };
+
+
   handleChangingSelectedCar = (id) => {
     console.log("Doc ID is ");
     console.log(id);
@@ -55,15 +65,15 @@ class CarControl extends Component {
     const selectedCar = this.state.masterCarList.filter(
       (car) => car.id === id
     )[0];
-console.log("Doc selectedCar is ");
+    console.log("Doc selectedCar is ");
     console.log(selectedCar);
-      // const firestoreCar = {
-      //   names: ticket.get("names"),
-      //   location: ticket.get("location"),
-      //   issue: ticket.get("issue"),
-      //   id: ticket.id
-      // }
-      this.setState({ selectedCar: selectedCar });
+    // const firestoreCar = {
+    //   names: ticket.get("names"),
+    //   location: ticket.get("location"),
+    //   issue: ticket.get("issue"),
+    //   id: ticket.id
+    // }
+    this.setState({ selectedCar: selectedCar });
   }
 
   handleEditClick = () => {
@@ -84,7 +94,7 @@ console.log("Doc selectedCar is ");
 
   handleDeletingCar = (id) => {
     this.props.firestore.delete({ collection: 'car', doc: id });
-    this.setState({ masterCarList: this.props.firestore.get({ collection: 'car', doc: id })   });
+    this.setState({ masterCarList: this.props.firestore.get({ collection: 'car', doc: id }) });
     this.setState({ selectedCar: null });
   };
 
@@ -109,9 +119,20 @@ console.log("Doc selectedCar is ");
       });
   }
 
+  paginateFunction = (arrayOfItems, pageNumber, pageSize) => {   //ontained from lodash library
+    const startIndex = (pageNumber - 1) * pageSize; //formula for calcualting starting index
+    return _(arrayOfItems).slice(startIndex).take(pageSize).value();
+  }
+
   render() {
     const auth = this.props.firebase.auth();
     let renderForm = null;
+    const paginationCarArray = this.paginateFunction(
+      this.state.masterCarList,
+      this.state.currentPage,
+      this.state.pageSize
+    );
+
     if (!isLoaded(auth)) {  //check to see if the auth state has been loaded or not. If it hasn't, our help queue will render Loading....
       return (
         <React.Fragment>
@@ -133,12 +154,12 @@ console.log("Doc selectedCar is ");
       console.log(this.state.selectedCar);
       console.log(this.state.editing);
       console.log(this.props.formVisibleOnPage);
-      
+
       let currentVisibleForm = null;
       let buttonText = null;
       if (this.state.editing) {
         console.log("INSIDE EDITING BLOCK");
-        currentVisibleForm = <EditCarForm car={this.state.selectedCar} onEditCar={this.handleAddingNewCarToList}  />
+        currentVisibleForm = <EditCarForm car={this.state.selectedCar} onEditCar={this.handleAddingNewCarToList} />
         buttonText = "Return to Car List";
       } else if (this.state.selectedCar != null) {
         // currentVisibleForm =<CarDetail carDetail={this.state.selectedCar} onClickingDelete={this.handleDeletingCar} onClickingEdit={this.handleEditClick} />
@@ -148,7 +169,7 @@ console.log("Doc selectedCar is ");
         // 
         currentVisibleForm = <ImageSlider slideImages={this.state.selectedCar} />
         renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickingDelete={this.handleDeletingKeg} onClickingEdit={this.handleEditClick} />
-        
+
         buttonText = "Return to car List";
         // } else if (this.state.formVisibleOnPage) {
       } else if (this.props.formVisibleOnPage) {
@@ -158,28 +179,26 @@ console.log("Doc selectedCar is ");
       } else {
         console.log("INSIDE NO CONDITION BLOCK");
         // currentVisibleForm = <CarList CarList={this.state.masterCarList} onCarSelection={this.handleChangingSelectedCar} />;
-        currentVisibleForm = <CarList onCarSelection={this.handleChangingSelectedCar} />;
+        currentVisibleForm = <CarList carList={paginationCarArray} onCarSelection={this.handleChangingSelectedCar} />;
+        renderForm = <Pagination className="pagination" itemsCount={this.state.masterCarList.length}
+          pageSize={this.state.pageSize}
+          currentPage={this.state.currentPage}
+          onPageChange={this.handlePageChange}
+        />
         buttonText = "Add Car";
       }
       return (
         <React.Fragment>
-          {/* <NavBar /> */}
-        <div className ="container">
-          {/* <div className="container"> */}
+          <div className="container">
             <Container>
-          {/* <h1>I am in Carcontrol</h1> */}
-          {currentVisibleForm}
-          <br></br>
-          <br></br>
-         
-          {renderForm}
-          </Container>
-          {/* </div> */}
-          <button onClick={this.handleClick}>{buttonText}</button>        
-          
-        </div>
-         {/* {<FooterPage />} */}
-         </React.Fragment>
+              {currentVisibleForm}
+              <br></br>
+              <br></br>
+              {renderForm}
+            </Container>
+            <button onClick={this.handleClick}>{buttonText}</button>
+          </div>
+        </React.Fragment>
       );
     }
 
@@ -189,6 +208,8 @@ console.log("Doc selectedCar is ");
 CarControl.propTypes = {
   headlines: PropTypes.array,
   masterCarList: PropTypes.array,
+  pageSize: PropTypes.number,
+  currentPage: PropTypes.number,
   // masterCarList: PropTypes.object,
   formVisibleOnPage: PropTypes.bool
 };
