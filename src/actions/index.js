@@ -5,6 +5,12 @@ export const deleteCar = id => ({
   id
 });
 
+
+export const addFireStoreData = (cars) => ({
+  type: c.ADD_FIRESTORE_DATA,  //resolves to "type: 'ADD_FIRESTORE_DATA'""
+  fireStoreData: cars,
+});
+
 export const toggleForm = () => ({
   type: c.TOGGLE_FORM  //resolves to "type: 'TOGGLE_FORM'""
 });

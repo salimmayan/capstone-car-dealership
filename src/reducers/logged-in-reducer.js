@@ -4,8 +4,8 @@ export default (state = false, action) => {
     // console.log("INSIDE FORM-VISIBLE REDUCER - state is ...");
     console.log(state);
     switch (action.type) {
-        case c.TOGGLE_FORM:
-            return !state;
+        case c.TOGGLE_LOGIN:
+            return true;
             default:
             return state;
     }

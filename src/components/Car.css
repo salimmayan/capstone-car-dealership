@@ -113,6 +113,8 @@ display: block; /* remove extra space below image */
   position: relative;
   bottom: 0;
   width: 100%;
+  margin-top: 4%;
+  margin-bottom: 0%;
 }
 
 .anchorTagColor {
@@ -706,13 +708,13 @@ a:active {
 }
 
 .Logo {
-  background-image: url(./landingPage.jpg);
+  background-image: url(./../img/landingPage.jpg);
 }
 
 
 .slider {
   position: relative;
-  height: 85vh;
+  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;

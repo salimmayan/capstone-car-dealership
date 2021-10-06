@@ -1,5 +1,5 @@
 import "./Car.css";
-import desktopImage from './../img/landingPage.jpg';
+import desktopImage from './../img/landingPage.jpg'; //src\img\landingPage.jpg
 // import SignInModal from "./SignInModal";
 import PropTypes from "prop-types";
 import { Modal, Button } from "react-bootstrap";

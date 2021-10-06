@@ -9,6 +9,7 @@ import AboutPage from './AboutPage';
 import LandingPage from './LandingPage';
 import NewCarFrom from './NewCarForm';
 import FooterPage from './FooterPage';
+import LogOut from './LogOut';
 
 function App() {
   return (
@@ -30,11 +31,12 @@ function App() {
             <CarControl />
           </Route>
           <Route path="/page">
+            {/* console.log("I AM IN LANDING PAGE"); */}
             <LandingPage />
           </Route>
-          {/* <Route path="/logout">
+          <Route path="/logout">
             <LogOut />
-          </Route> */}
+          </Route>
         </Switch>
         
       </main>

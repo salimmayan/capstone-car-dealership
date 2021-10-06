@@ -13,32 +13,35 @@ import firebase from "./firebase.js";
 import reducer from './reducers/index';  //note that "reducer" is a file that contains a function with switch statements. It contians an initial state
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import middlewareLogger from './middleware/middleware-logger';
+// import middlewareLogger from './middleware/middleware-logger';
 // import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-// const store = createStore(rootReducer); 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware, middlewareLogger)));
+const store = createStore(rootReducer);
+// const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware, middlewareLogger)));
 
 const rrfProps = {
   firebase,
   config: {
-        userProfile: "users"
-    },
+    userProfile: "users"
+  },
   dispatch: store.dispatch,
   createFirestoreInstance
 }
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={store}>   {/* pass the store into <Provider> as a prop */}
     <ReactReduxFirebaseProvider {...rrfProps}>
-      <App />
+      <App />         {/* <App /> component is now a child of the <Provider> component. */}
     </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById('root')
 )
 
-store.subscribe(() => { console.log("INSIDE SUBSCRIBE"); console.log(store.getState())})
+store.subscribe(() => {
+  // console.log("INSIDE SUBSCRIBE"); 
+  console.log(store.getState()); //Each time there's a change in the store, our subscription will be triggered, causing console.log to run
+})
 
 
 // If you want to start measuring performance in your app, pass a function
