@@ -14,6 +14,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Pagination from './Pagination';
 import _ from "lodash";
 
+
 class CarControl extends Component {
 
   constructor(props) { //this is func defenition - where is it called? 
@@ -85,12 +86,12 @@ class CarControl extends Component {
           return { id, ...data };
         });
         //create another state slice that turns true when logged in - place this begore returning data from each component
-        
+
         //here I should dispatch an action to store "car" in redux state slice - each slice needs a reducer so create one
         const { dispatch } = this.props;
         const action = {
           type: 'ADD_FIRESTORE_DATA',
-          id:1,
+          id: 1,
           fireStoreData: cars,
         }
         dispatch(action);
@@ -99,6 +100,26 @@ class CarControl extends Component {
           refreshPage: false,
         });
       });
+
+    // firebase save user related data
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {        // User is signed in. uid is now available to use
+        var uid = user.uid;
+        console.log("LOGGED IN USER IS");
+        console.log(uid);
+      }
+    });
+
+    firebase.auth().onAuthStateChanged(function (user) {
+      var dbUser = db.collection('car')
+        .doc(user.uid).set(
+          {
+            email: user.email,
+            someotherproperty: "some user preference"
+          });
+
+    });
+
   }
 
   paginateFunction = (arrayOfItems, pageNumber, pageSize) => {   //ontained from lodash library
@@ -140,8 +161,8 @@ class CarControl extends Component {
         type: 'TOGGLE_LOGIN'
       }
       dispatch(action);
-      
-      
+
+
 
       if (this.state.loggedIn) {
         currentVisibleForm = (<LandingPage onSignInSuccess={this.handleOnSignInSuccess} />);
@@ -159,6 +180,7 @@ class CarControl extends Component {
           currentVisibleForm = <CarList className="wrapperNew" carList={paginationCarArray} onCarSelection={this.handleChangingSelectedCar} />
           renderForm = <Pagination className="pagination" itemsCount={this.state.masterCarList.length} pageSize={this.state.pageSize}
             currentPage={this.state.currentPage} onPageChange={this.handlePageChange} />
+            
         }
       }
       return (
@@ -169,6 +191,7 @@ class CarControl extends Component {
               <br></br>
               <br></br>
               {renderForm}
+             
             </Container>
             {/* <button onClick={this.handleClick}>{buttonText}</button> */}
           </div>

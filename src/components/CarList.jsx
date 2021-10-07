@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Car from "./Car";
-
+import LikeButton from "./LikeButton";
 import { useSelector } from 'react-redux';
 import { useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -27,7 +27,9 @@ function CarList(props) {
         
           {/* <h1>Car List component</h1> */}
           {props.carList.map((currentCar) => {
-            return <Car
+            return (
+              <React.Fragment>
+                <Car
               whenCarClicked={props.onCarSelection}
               ImageURL={currentCar.ImageURLs[0].value}
               Miles={currentCar.Miles}
@@ -37,6 +39,9 @@ function CarList(props) {
               Year={currentCar.Year}
               id={currentCar.id}
               key={currentCar.timeOpen} />
+              <LikeButton />
+             </React.Fragment>
+      ); 
           })}
         
         
