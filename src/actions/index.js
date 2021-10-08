@@ -11,8 +11,8 @@ export const addFireStoreData = (cars) => ({
   fireStoreData: cars,
 });
 
-export const toggleForm = () => ({
-  type: c.TOGGLE_FORM  //resolves to "type: 'TOGGLE_FORM'""
+export const toggleLikeButton = () => ({
+  type: c.TOGGLE_LIKE_BUTTON  //resolves to "type: 'TOGGLE_FORM'""
 });
 
 // export const addCar = (car) => {

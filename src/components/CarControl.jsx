@@ -13,9 +13,11 @@ import ImageSlider from './ImageSlider';
 import { Container, Row, Col } from 'react-bootstrap';
 import Pagination from './Pagination';
 import _ from "lodash";
-
+import { string } from 'yup';
+import { useFirestore } from "react-redux-firebase"; //useFirestore is a HOOK needed for UPDATING Record in DB
 
 class CarControl extends Component {
+
 
   constructor(props) { //this is func defenition - where is it called? 
     console.log("constructor() called!");
@@ -26,9 +28,11 @@ class CarControl extends Component {
       selectedCar: null,
       masterCarList: null,
       addNewCar: false,
-      pageSize: 3,
+      pageSize: 6,
       currentPage: 1,
-      loggedIn: true,
+      startState: true,
+      loggedInUser: string,
+      docIdArray: null
     };
   }
 
@@ -65,7 +69,7 @@ class CarControl extends Component {
   };
 
   handleOnSignInSuccess = () => {
-    this.setState({ loggedIn: false });
+    this.setState({ startState: false });
     console.log("inside handleOnSignInSuccess");
   };
 
@@ -75,51 +79,61 @@ class CarControl extends Component {
     this.setState({ selectedCar: null });
   };
 
-  componentDidMount() {
-    const db = firebase.firestore();
-    db.collection("car")
-      .get()
-      .then((querySnapshot) => {
-        const cars = querySnapshot.docs.map((doc) => {
-          const id = doc.id;
-          const data = doc.data();
-          return { id, ...data };
-        });
-        //create another state slice that turns true when logged in - place this begore returning data from each component
+  handleLikeButtonClicked = (id) => {
+    console.log("LIKED car ID is ");
+    console.log(id);
+    const likedCars = {id}
 
-        //here I should dispatch an action to store "car" in redux state slice - each slice needs a reducer so create one
-        const { dispatch } = this.props;
-        const action = {
-          type: 'ADD_FIRESTORE_DATA',
-          id: 1,
-          fireStoreData: cars,
-        }
-        dispatch(action);
-        this.setState({
-          masterCarList: cars,
-          refreshPage: false,
-        });
+    const fireStoreSelectedCar = this.props.firestore.add({ collection: 'users', doc: this.props.currentUserIDRedux }, likedCars);
+    // console.log("Doc fireStoreSelectedCar is ");
+    // console.log(fireStoreSelectedCar);
+    
+  }
+
+
+  componentDidMount() {
+    console.log("START OF COMPOENENT DID MOUNT");
+    const db = firebase.firestore();
+    db.collection("car").get().then((querySnapshot) => {
+      const cars = querySnapshot.docs.map((doc) => {
+        const id = doc.id;
+        // console.log("DOC ID");
+        // console.log(doc.id);
+        const data = doc.data();
+        return { id, ...data };
       });
 
-    // firebase save user related data
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {        // User is signed in. uid is now available to use
-        var uid = user.uid;
-        console.log("LOGGED IN USER IS");
-        console.log(uid);
+
+      const docIdArray = querySnapshot.docs.map((doc) => {
+        const id = doc.id;
+        const data = doc.data();
+        return doc.id;
+      });
+
+      this.setState({ docIdArray: docIdArray });
+
+      // console.log("DOC ID");
+      //   console.log(docIdArray);
+      //create another state slice that turns true when logged in - place this begore returning data from each component
+
+      //here I should dispatch an action to store "car" in redux state slice - each slice needs a reducer so create one
+      const { dispatch } = this.props;
+      const action = {
+        type: 'ADD_FIRESTORE_DATA',
+        id: 1,
+        fireStoreData: cars,
       }
+      dispatch(action);
+      this.setState({
+        masterCarList: cars,
+        refreshPage: false,
+      });
+
+      console.log("masterCarList IS");
+      console.log(this.state.masterCarList);
     });
 
-    firebase.auth().onAuthStateChanged(function (user) {
-      var dbUser = db.collection('car')
-        .doc(user.uid).set(
-          {
-            email: user.email,
-            someotherproperty: "some user preference"
-          });
-
-    });
-
+    console.log("END OF COMPOENENT DID MOUNT");
   }
 
   paginateFunction = (arrayOfItems, pageNumber, pageSize) => {   //ontained from lodash library
@@ -128,19 +142,11 @@ class CarControl extends Component {
   }
 
   render() {
+    // const firestore = useFirestore();
+
     const auth = this.props.firebase.auth();
-    let currentVisibleForm = null;
-    let renderForm = null;
-    const paginationCarArray = this.paginateFunction(
-      this.state.masterCarList,
-      this.state.currentPage,
-      this.state.pageSize
-    );
-
-    console.log("ATTENTION - ATTENTION ");
-    console.log(this.props.masterCarListRedux);
-
     if (!isLoaded(auth)) {
+      console.log("CC: Loop - isLoaded ");
       return (
         <React.Fragment>
           <h1>Loading...</h1>
@@ -148,6 +154,7 @@ class CarControl extends Component {
       )
     }
     if ((isLoaded(auth)) && (auth.currentUser == null)) {
+      console.log("CC: Loop - isLoaded && currentUser is null");
       return (
         <React.Fragment>
           <h1>You must be signed in to access the queue.</h1>
@@ -155,32 +162,43 @@ class CarControl extends Component {
       )
     }
     if ((isLoaded(auth)) && (auth.currentUser != null)) {
-      // All of the code previously in our render() method should go in this conditional.
-      const { dispatch } = this.props;
-      const action = {
-        type: 'TOGGLE_LOGIN'
-      }
-      dispatch(action);
+      console.log("CC: Loop - isLoaded && currentUser is not null");
+      let currentVisibleForm = null;
+      let renderForm = null;
+      const paginationCarArray = this.paginateFunction(
+        this.state.masterCarList,
+        this.state.currentPage,
+        this.state.pageSize
+      );
+      console.log("CC: masterCarListRedux ");
+      console.log(this.props.masterCarListRedux);
 
-
-
-      if (this.state.loggedIn) {
+      console.log("CC: this.props.isLoggedInRedux ");
+      console.log(this.props.isLoggedInRedux);
+      if (!this.props.isLoggedInRedux) {
+        console.log("CC: Render Loop - isLoggedInRedux - LandingPage");
         currentVisibleForm = (<LandingPage onSignInSuccess={this.handleOnSignInSuccess} />);
       }
       else if (this.state.editing) {
+        console.log("CC: Render Loop - editing - EditCarForm");
         // console.log("IN RENDER() - this.state.editing ");
         currentVisibleForm = (<EditCarForm car={this.state.selectedCar} buttonText="Update" />);
-      } else if (this.state.selectedCar != null) {
+      }
+      else if (this.state.selectedCar != null) {
+        console.log("CC: Render Loop - selectedCar - CarDetail");
         currentVisibleForm = <ImageSlider slideImages={this.state.selectedCar} />
         renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickingEdit={this.handleEditClick} />
-      } else {
+      }
+      else {
         if (this.state.currentVisibleForm) {
+          console.log("CC: Render Loop - currentVisibleForm - NewCarForm");
           currentVisibleForm = <NewCarForm />;
-        } else {
-          currentVisibleForm = <CarList className="wrapperNew" carList={paginationCarArray} onCarSelection={this.handleChangingSelectedCar} />
+        }
+        else {
+          console.log("CC: Render Loop - currentVisibleForm - CarList");
+          currentVisibleForm = <CarList className="wrapperNew" carList={paginationCarArray} onwhenLikeButtonClicked={this.handleLikeButtonClicked} onCarSelection={this.handleChangingSelectedCar} />
           renderForm = <Pagination className="pagination" itemsCount={this.state.masterCarList.length} pageSize={this.state.pageSize}
             currentPage={this.state.currentPage} onPageChange={this.handlePageChange} />
-            
         }
       }
       return (
@@ -191,7 +209,6 @@ class CarControl extends Component {
               <br></br>
               <br></br>
               {renderForm}
-             
             </Container>
             {/* <button onClick={this.handleClick}>{buttonText}</button> */}
           </div>
@@ -208,8 +225,12 @@ CarControl.propTypes = {
   currentPage: PropTypes.number,
   // masterCarList: PropTypes.object,
   formVisibleOnPage: PropTypes.bool,
-  loggedIn: PropTypes.bool,
-  masterCarListRedux: PropTypes.object
+  startState: PropTypes.bool,
+  masterCarListRedux: PropTypes.object,
+  loggedInUser: PropTypes.string,
+  docIdArray: PropTypes.array,
+  isLoggedInRedux: PropTypes.bool,
+  currentUserIDRedux: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
@@ -221,12 +242,14 @@ const mapStateToProps = (state) => {
     addNewCar: state.addNewCar,
     pageSize: state.pageSize,
     currentPage: state.currentPage,
-    loggedIn: state.loggedIn,
+    startState: state.startState,
     // headlines: state.headlines,
-    isLoading: state.isLoading,
+    loggedIn: state.loggedIn,
+    isLoggedInRedux: state.isLoggedInRedux,
     error: state.error,
     masterCarListRedux: state.masterCarListRedux,
-    loggedIn: state.loggedIn
+    currentUserIDRedux: state.currentUserIDRedux,
+    startState: state.startState
   };
 };
 

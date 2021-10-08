@@ -31,7 +31,6 @@ function App() {
             <CarControl />
           </Route>
           <Route path="/page">
-            {/* console.log("I AM IN LANDING PAGE"); */}
             <LandingPage />
           </Route>
           <Route path="/logout">

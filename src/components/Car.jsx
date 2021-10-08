@@ -1,6 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Container, Row, Col } from 'react-bootstrap';
+// import LikeButton from './LikeButton';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Favorite from '@material-ui/icons/Favorite';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 const myStyledComponentStyles = {
   backgroundColor: "#ecf0f1",
@@ -15,16 +20,29 @@ const myStyledComponentStyles = {
   // wdth: "100%",
 };
 
+
+
 function Car(props) {
+
+
   return (
-    <Col lg={4}>
-    <div>
-      {/* <div onClick={() => props.whenCarClicked(props.id)}> */}
-        {/* <h3>{props.Make} - {props.Miles}</h3> */}
-        <div onClick={() => props.whenCarClicked(props.id)}>
+
+
+    <React.Fragment>
+      <Col lg={4}>
+        <div>
+          {/* <div onClick={() => props.whenCarClicked(props.id)}> */}
+          {/* <h3>{props.Make} - {props.Miles}</h3> */}
+
           <div className="thumbnail">
-            {/* <img style={myStyledComponentStyles} src={props.IkeymageURLs[0].value} alt=""></img> */}
-            <img style={myStyledComponentStyles} src={props.ImageURL} alt=""></img>
+            <div onClick={() => props.whenCarClicked(props.id)}>
+              <img style={myStyledComponentStyles} src={props.ImageURL} alt=""></img>
+            </div>
+            <div onClick={() => props.whenLikeButtonClicked(props.id)}>
+            <div style={{ margin: 'auto', display: 'block', width: 'fit-content' }}>
+              <FormControlLabel control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />} label="" />
+            </div>
+            </div>
             <p className="moreWeight">
               {props.Year} {props.Make} {props.Model}
             </p>
@@ -35,11 +53,13 @@ function Car(props) {
             <p className="moreWeight">
               ${props.Price.toLocaleString()}
             </p>
+
           </div>
+
+
         </div>
-      {/* </div> */}
-    </div>
-    </Col>
+      </Col>
+    </React.Fragment>
   );
 }
 

@@ -3,12 +3,28 @@ import firebase from "firebase/app";
 
 
 function Signin() {
+
     function doSignUp(event) {
         event.preventDefault();
+        const db = firebase.firestore();
         const email = event.target.email.value;
         const password = event.target.password.value;
         firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
             console.log("successfully signed up!");
+            if (firebase.auth().currentUser !== null) 
+            console.log("NEW USER ID: " + firebase.auth().currentUser.uid);
+            const currentUserID = firebase.auth().currentUser.uid;
+            console.log("SIGN-IN I AM ALMOST THERE");
+            firebase.auth().onAuthStateChanged(function (user) {
+                console.log("SIGN-IN I AM INSIDE");
+                var dbUser = db.collection('user')
+                  .doc(user.uid).set(
+                    {
+                      email: user.email,
+                      someotherproperty: "some user preference"
+                    });
+              });
+
         }).catch(function (error) {
             console.log(error.message);
         });
