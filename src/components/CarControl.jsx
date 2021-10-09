@@ -15,6 +15,7 @@ import Pagination from './Pagination';
 import _ from "lodash";
 import { string } from 'yup';
 import { useFirestore } from "react-redux-firebase"; //useFirestore is a HOOK needed for UPDATING Record in DB
+import { v4 } from 'uuid';
 
 class CarControl extends Component {
 
@@ -74,20 +75,62 @@ class CarControl extends Component {
   };
 
   handleDeletingCar = (id) => {
-    this.props.firestore.delete({ collection: 'car', doc: id });
-    this.setState({ masterCarList: this.props.firestore.get({ collection: 'car', doc: id }) });
+    this.props.firestoreRedux.delete({ collection: 'car', doc: id });
+    this.setState({ masterCarList: this.props.firestoreRedux.get({ collection: 'car', doc: id }) });
     this.setState({ selectedCar: null });
   };
 
-  handleLikeButtonClicked = (id) => {
+  handleLikeButtonClicked = (clickedCarID) => {
     console.log("LIKED car ID is ");
-    console.log(id);
-    const likedCars = {id}
+    console.log(clickedCarID);
+    // const newMasterLikedList = this.props.firestoreRedux;
+    // console.log("newMasterLikedList is ");
+    // console.log(newMasterLikedList);
+    // const newId = {clickedCarID};
+    // console.log(clickedCarID);
+    // this.props.firestore.update({collection: 'users', doc: this.props.currentUserIDRedux }, id)
+    // return this.props.firestore.update({collection: 'user', doc: this.props.currentUserIDRedux }, newId)
 
-    const fireStoreSelectedCar = this.props.firestore.add({ collection: 'users', doc: this.props.currentUserIDRedux }, likedCars);
+    // .masterKegList.concat(newKeg);
+
+    // const likedCars = {id}
+
+    // const fireStoreSelectedCar = this.props.firestore.add({ collection: 'user', doc: this.props.currentUserIDRedux }, likedCars);
     // console.log("Doc fireStoreSelectedCar is ");
     // console.log(fireStoreSelectedCar);
-    
+    const uuID = {};
+    uuID.id = v4()
+    const temp= uuID.id;
+    console.log("temp");
+    console.log(temp);
+    const newLikedCarObj = {temp: clickedCarID}
+    console.log("newLikedCarObj");
+    console.log(newLikedCarObj);
+    const db = firebase.firestore();
+    console.log("GETTING DATA FROM FS");
+    console.log(this.props.firestoreRedux );
+    // pull all cars that were clicked and then if current click matches an existing car, remove it. Else if current click
+    // is not in the list of cars, then add it. 
+    // const currentLikes = this.props.firestore.get({collection: 'users'})
+    // console.log(currentLikes);
+    //  firebase.auth().onAuthStateChanged(function (user) {
+    //     var dbUser = db.collection('users').doc(user.uid).update({ newLikedCarObj });
+    //  });
+
+      // firebase.auth().onAuthStateChanged(function (user) {
+      //               console.log("SIGN-IN I AM INSIDE");
+      //               var dbUser = db.collection('users')
+      //                   .doc(user.uid).set(
+      //                       {
+      //                           email: user.email,
+      //                           someotherproperty: "some user preference"
+      //                       });
+      //           });
+
+    //  db.collection("users2").doc(this.props.currentUserIDRedux).set({
+    //   //"car" is the name of collection
+    //   uuIDTicket: id,
+    // });
   }
 
 
@@ -112,18 +155,28 @@ class CarControl extends Component {
 
       this.setState({ docIdArray: docIdArray });
 
+      // db.collection("users").get().then((querySnapshot) => {
+      //   const cars2 = querySnapshot.docs.map((doc) => {
+      //     const id = doc.id;
+      //     // console.log("DOC ID");
+      //     // console.log(doc.id);
+      //     const data = doc.data();
+      //     return { id, ...data };
+      //   });
+      // });
+
       // console.log("DOC ID");
       //   console.log(docIdArray);
       //create another state slice that turns true when logged in - place this begore returning data from each component
 
       //here I should dispatch an action to store "car" in redux state slice - each slice needs a reducer so create one
-      const { dispatch } = this.props;
-      const action = {
-        type: 'ADD_FIRESTORE_DATA',
-        id: 1,
-        fireStoreData: cars,
-      }
-      dispatch(action);
+      // const { dispatch } = this.props;
+      // const action = {
+      //   type: 'ADD_FIRESTORE_DATA',
+      //   id: 1,
+      //   fireStoreData: cars,
+      // }
+      // dispatch(action);
       this.setState({
         masterCarList: cars,
         refreshPage: false,
@@ -170,8 +223,8 @@ class CarControl extends Component {
         this.state.currentPage,
         this.state.pageSize
       );
-      console.log("CC: masterCarListRedux ");
-      console.log(this.props.masterCarListRedux);
+      console.log("CC: firestoreRedux ");
+      console.log(this.props.firestoreRedux);
 
       console.log("CC: this.props.isLoggedInRedux ");
       console.log(this.props.isLoggedInRedux);
@@ -226,7 +279,7 @@ CarControl.propTypes = {
   // masterCarList: PropTypes.object,
   formVisibleOnPage: PropTypes.bool,
   startState: PropTypes.bool,
-  masterCarListRedux: PropTypes.object,
+  firestoreRedux: PropTypes.object,
   loggedInUser: PropTypes.string,
   docIdArray: PropTypes.array,
   isLoggedInRedux: PropTypes.bool,
@@ -247,9 +300,9 @@ const mapStateToProps = (state) => {
     loggedIn: state.loggedIn,
     isLoggedInRedux: state.isLoggedInRedux,
     error: state.error,
-    masterCarListRedux: state.masterCarListRedux,
+    firestoreRedux: state.firestoreRedux,
     currentUserIDRedux: state.currentUserIDRedux,
-    startState: state.startState
+    startState: state.startState,
   };
 };
 

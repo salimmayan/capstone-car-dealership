@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import "./Car.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useFirestore } from "react-redux-firebase"; //useFirestore is a HOOK needed for UPDATING Record in DB
-
-
+import { useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
+import { useDispatch, useSelector } from 'react-redux';
 
 function CarDetail(props) {
   const { selectedCar, onClickingEdit, onClickingDelete } = props;
@@ -17,16 +17,32 @@ function CarDetail(props) {
   const safetyRecall = "https://www.nhtsa.gov/recalls?vin=";
   const safetyRecallURL = safetyRecall.concat(basics.VIN, apostope);  //https://www.nhtsa.gov/recalls?vin=JTJYARBZXK21470571
   const firestore = useFirestore(); //call useFirestore() function and save our Firestore reference in a constant called firestore
-  
-  
+  useFirestoreConnect([
+    { collection: 'car' }
+]);
+// const cars = useSelector(state => state.firestoreRedux.ordered.car);
+const currentUserIDRedux = useSelector(state => state.currentUserIDRedux);
+let updateCarButton = null;
+let deleteCarButton = null;
+let uploadCarButton = null;
   function deleteTicket() {
     console.log("Inside deleteTicket(). Captured ID is ");
     console.log(selectedCar.id);
     firestore.delete({ collection: "car", doc: selectedCar.id }); //access Firestore via this.props.firestore. Then we call the delete() method.
     // onClickingDelete();
   }
-
+  console.log("CD: CURRENT USER IS");
+  console.log(currentUserIDRedux.userID)
+  if (currentUserIDRedux.userID === 'JPlfSdtQkeUodL3oi5JGDGVDdJO2') {
+      updateCarButton = <button className="btn btn-warning" onClick={onClickingEdit}>Update Car</button>
+      deleteCarButton = <button style ={{marginLeft: "50px"}} className="btn btn-danger" onClick={deleteTicket }>Delete Car</button>
+  }
+  else {
+     
+  }
   return (
+
+    
     <React.Fragment>
       <div className="jumbotron coralColor ">
         <table className="table">
@@ -66,11 +82,8 @@ function CarDetail(props) {
       </div>
 
       <div className="carDetailButton">
-        <button className="btn btn-warning" onClick={onClickingEdit}>Update Car</button>
-
-        {/* When "Update Keg" button is clicked, STATE of "editing" is mutated (set to TRUE) in KegControl.jsx */}
-
-        <button style ={{marginLeft: "50px"}} className="btn btn-danger" onClick={deleteTicket }>Delete Car</button>
+        {updateCarButton}
+        {deleteCarButton}
       </div>
     </React.Fragment>
   );
@@ -80,6 +93,9 @@ CarDetail.propTypes = {
   keg: PropTypes.object,
   onClickingDelete: PropTypes.func,
   onClickingEdit: PropTypes.func,
+  updateCarButton: PropTypes.string,
+  deleteCarButton: PropTypes.string,
+  currentUserIDRedux: PropTypes.object,
 };
 
 export default CarDetail;

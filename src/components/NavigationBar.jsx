@@ -80,7 +80,7 @@ class NavigationBar extends React.Component {
           <ul className="navbar-nav mr-auto">
             <NavItem path="/" name="Home" />
             {/* <NavItem path="/signin" name="Sign In" /> */}
-            <NavItem path="/createcar" name="Upload Data" />
+            {/* <NavItem path="/createcar" name="Upload Data" /> */}
             <NavItem path="/about" name="About" />
             <NavItem path="/page" name="LandingPage" />
 

@@ -29,7 +29,7 @@ function LandingPage(props) {
     useFirestoreConnect([
         { collection: 'car' }
     ]);
-    const cars = useSelector(state => state.firestore.ordered.car);
+    const cars = useSelector(state => state.firestoreRedux.ordered.car);
     const isLoggedInRedux = useSelector(state => state.isLoggedInRedux);
     const dispatch = useDispatch();
 

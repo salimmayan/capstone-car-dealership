@@ -28,7 +28,7 @@ function CarList(props) {
   ]);
 
   // The useSelector() hook comes from react-redux.
-  const cars = useSelector(state => state.firestore.ordered.car);
+  const cars = useSelector(state => state.firestoreRedux.ordered.car);
   console.log("Car List component: cars are ");
   console.log(cars);
   // react-redux-firebase also offers a useful isLoaded() function.
