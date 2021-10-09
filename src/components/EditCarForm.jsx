@@ -32,6 +32,7 @@ function EditCarForm(props) {
       Features: event.target.Features.value,
     };
     firestore.update({ collection: "car", doc: car.id }, updatedCar); //Firestore will merge the two arg objects
+    console.log("EF: I AM GETTING SUBMITTED");
     // handleSetUpdate();
   }
 
@@ -68,66 +69,66 @@ function EditCarForm(props) {
             <tr>
               <td>Make</td>
               <td style={{ color: "coral" }}>{car.Make}</td>
-              <td><input required type="text" name="Make" placeholder="New Make" /></td>
+              <td><input type="text" name="Make" placeholder="New Make" required/></td>
             </tr>
             <tr>
               <td>Model</td>
               <td style={{ color: "coral" }}>{car.Model}</td>
-              <td><input required type="text" name="Model" placeholder="New Model" /></td>
+              <td><input type="text" name="Model" placeholder="New Model" required/></td>
             </tr>
             <tr>
               <td>Miles</td>
               <td style={{ color: "coral" }}>{car.Miles.toLocaleString()}</td>
-              <td><input required type="text" name="Miles" placeholder="New Miles" /></td>
+              <td><input type="text" name="Miles" placeholder="New Miles" required/></td>
             </tr>
             <tr>
               <td>Price</td>
               <td style={{ color: "coral" }}>${car.Price.toLocaleString()}</td>
-              <td><input required type="text" name="Price" placeholder="New Price" /></td>
+              <td><input type="text" name="Price" placeholder="New Price" required/></td>
             </tr>
             <tr>
               <td>Trim</td>
               <td style={{ color: "coral" }}>{car.Trim}</td>
-              <td><input required type="text" name="Trim" placeholder="New Trim" /></td>
+              <td><input type="text" name="Trim" placeholder="New Trim" required/></td>
             </tr>
             <tr>
               <td>Year</td><td style={{ color: "coral" }}>{car.Year}</td>
-              <td><input required type="text" name="Year" placeholder="New Year" /></td>
+              <td><input type="text" name="Year" placeholder="New Year" required/></td>
             </tr>
             <tr>
               <td>Body Type</td>
               <td style={{ color: "coral" }}>{car.Basics.BodyType}</td>
-              <td><input required type="text" name="BodyType" placeholder="New Body Type" /></td>
+              <td><input type="text" name="BodyType" placeholder="New Body Type" required/></td>
             </tr>
             <tr>
               <td>Engine</td>
               <td style={{ color: "coral" }}>{car.Basics.Engine}</td>
-              <td><input required type="text" name="Engine" placeholder="New Engine" /></td>
+              <td><input type="text" name="Engine" placeholder="New Engine" required/></td>
             </tr>
             <tr>
               <td>Exterior</td>
               <td style={{ color: "coral" }}>{car.Basics.Exterior}</td>
-              <td><input required type="text" name="Exterior" placeholder="New Exterior" /></td>
+              <td><input type="text" name="Exterior" placeholder="New Exterior" required/></td>
             </tr>
             <tr>
               <td>MPG</td>
               <td style={{ color: "coral" }}>{car.Basics.MPG}</td>
-              <td><input required type="text" name="MPG" placeholder="New MPG" /></td>
+              <td><input type="text" name="MPG" placeholder="New MPG" required/></td>
             </tr>
             <tr>
               <td>Transmission</td>
               <td style={{ color: "coral" }}>{car.Basics.Transmission}</td>
-              <td><input required type="text" name="Transmission" placeholder="New Transmission" /></td>
+              <td><input type="text" name="Transmission" placeholder="New Transmission" required/></td>
             </tr>
             <tr>
               <td>VIN</td>
               <td style={{ color: "coral" }}>{car.Basics.VIN}</td>
-              <td><input required type="text" name="VIN" placeholder="New VIN" /></td>
+              <td><input type="text" name="VIN" placeholder="New VIN" required/></td>
             </tr>
             <tr>
               <td>Features</td>
               <td style={{ color: "coral" }}>{car.Features}</td>
-              <td><input required type="text" name="Features" placeholder="New Features" /></td>
+              <td><input type="text" name="Features" placeholder="New Features" required/></td>
             </tr>
           </tbody>
         </table>

@@ -7,7 +7,7 @@ import { useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 import { useDispatch, useSelector } from 'react-redux';
 
 function CarDetail(props) {
-  const { selectedCar, onClickingEdit, onClickingDelete } = props;
+  const { selectedCar, onClickingEdit, onClickingAddCar, onClickingDelete } = props;
   const featureList = selectedCar.Features.split(",");
   const basics = selectedCar.Basics;
   const basicsKeys = Object.keys(basics);
@@ -38,7 +38,7 @@ let addCarButton = null;
   console.log("CD: CURRENT USER IS");
   console.log(currentUserIDRedux.userID)
   if (currentUserIDRedux.userID === 'JPlfSdtQkeUodL3oi5JGDGVDdJO2') {
-      addCarButton = <button style ={{marginLeft: "50px", background: "green", border: "none"}} className="btn btn-danger" onClick={addCar }>Add New Car</button>
+      addCarButton = <button style ={{marginLeft: "50px", background: "green", border: "none"}} className="btn btn-danger" onClick={onClickingAddCar }>Add New Car</button>
       updateCarButton = <button style ={{marginLeft: "50px"}} className="btn btn-warning" onClick={onClickingEdit}>Update Car</button>
       deleteCarButton = <button style ={{marginLeft: "50px"}} className="btn btn-danger" onClick={ deleteCar }>Delete Car</button>      
   }
@@ -99,6 +99,7 @@ CarDetail.propTypes = {
   keg: PropTypes.object,
   onClickingDelete: PropTypes.func,
   onClickingEdit: PropTypes.func,
+  onClickingAddCar: PropTypes.func,
   updateCarButton: PropTypes.string,
   deleteCarButton: PropTypes.string,
   currentUserIDRedux: PropTypes.object,

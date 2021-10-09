@@ -102,12 +102,6 @@ function NewCarForm() {
         Transmission: Transmission,
         VIN: VIN,
       },
-      // BodyType: BodyType,
-      // Engine: Engine,
-      // Exterior: Exterior,
-      // MPG: MPG,
-      // Transmission: Transmission,
-      // VIN: VIN,
       Features: Features,
     });
 
@@ -118,6 +112,9 @@ function NewCarForm() {
     addNonImageFieldToFirestore(uuID);
     // console.log("SALIM!!!carMake:imgExtURL:imgURLs::" + carMake + ":" + imgExtURL + ":" + imgURLs);
   };
+
+
+
 
   function handleSetUpdate() {
     console.log("inside handleSetUpdate");
@@ -137,61 +134,61 @@ function NewCarForm() {
 
 
   // if (this.props.loggedIn) {
-    return (
-      <React.Fragment>
-        <br></br> <br></br> <br></br>
-        <div className="reUsableCarFormh2">
-          <h2>Create New Record</h2>
-        </div>
-        <div className="jumbotron">
-          <form onSubmit={onSubmit}>
-            <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
-            <br></br> <br></br>
-            <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
-            <br></br> <br></br>
-            <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
-            <br></br> <br></br>
-            <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
-            <br></br> <br></br>
-            <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
-            <br></br> <br></br>
-            <input type="text" className="clearFileFieldOnSubmit" name="carMake" placeholder="Make" />
-            <br></br> <br></br>
-            <input type="text" className="clearFileFieldOnSubmit" name="carModel" placeholder="Model" />
-            <br></br> <br></br>
-            <input type="text" className="clearFileFieldOnSubmit" name="Year" placeholder="Year" />
-            <br></br> <br></br>
-            <input type="text" className="clearFileFieldOnSubmit" name="Trim" placeholder="Trim" />
-            <br></br> <br></br>
-            <input type="text" className="clearFileFieldOnSubmit" name="Miles" placeholder="Miles" />
-            <br></br> <br></br>
-            <input type="text" className="clearFileFieldOnSubmit" name="Price" placeholder="Price" />
-            <br></br> <br></br>
-            <input type="text" className="clearFileFieldOnSubmit" name="BodyType" placeholder="Body Type" />
-            <br></br> <br></br>
-            <input type="text" className="clearFileFieldOnSubmit" name="Engine" placeholder="Engine" />
-            <br></br> <br></br>
-            <input type="text" className="clearFileFieldOnSubmit" name="Exterior" placeholder="Exterior" />
-            <br></br> <br></br>
-            <input type="text" className="clearFileFieldOnSubmit" name="MPG" placeholder="MPG" />
-            <br></br> <br></br>
-            <input type="text" className="clearFileFieldOnSubmit" name="Transmission" placeholder="Transmission" />
-            <br></br> <br></br>
-            <input type="text" className="clearFileFieldOnSubmit" name="VIN" placeholder="VIN" />
-            <br></br> <br></br>
-            <input type="text" className="clearFileFieldOnSubmit" name="Features" placeholder="Features (Comma separated)" />
-            <br></br> <br></br>
-            <div className="container">
-              <div className="buttonPrimary2">
-                <button style={{ marginLeft: "50px" }} className="btn btn-warning" >Create New Car</button>
-                <button id="close" style={{ marginLeft: "50px" }} className="btn btn-primary" type="reset" onClick={handleClose}>Close Form</button>
-              </div>
+  return (
+    <React.Fragment>
+      <br></br> <br></br> <br></br>
+      <div className="reUsableCarFormh2">
+        <h2>Create New Record</h2>
+      </div>
+      <div className="jumbotron">
+        <form onSubmit={onSubmit}>
+          <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
+          <br></br> <br></br>
+          <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
+          <br></br> <br></br>
+          <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
+          <br></br> <br></br>
+          <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
+          <br></br> <br></br>
+          <input type="file" className="clearFileFieldOnSubmit" onChange={onFileChange} />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="carMake" placeholder="Make" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="carModel" placeholder="Model" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Year" placeholder="Year" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Trim" placeholder="Trim" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Miles" placeholder="Miles" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Price" placeholder="Price" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="BodyType" placeholder="Body Type" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Engine" placeholder="Engine" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Exterior" placeholder="Exterior" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="MPG" placeholder="MPG" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Transmission" placeholder="Transmission" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="VIN" placeholder="VIN" />
+          <br></br> <br></br>
+          <input type="text" className="clearFileFieldOnSubmit" name="Features" placeholder="Features (Comma separated)" />
+          <br></br> <br></br>
+          <div className="container">
+            <div className="buttonPrimary2">
+              <button style={{ marginLeft: "50px" }} className="btn btn-warning" >Create New Car</button>
+              <button id="close" style={{ marginLeft: "50px" }} className="btn btn-primary" type="reset" onClick={handleClose}>Close Form</button>
             </div>
-          </form>
-        </div>
-      </React.Fragment>
+          </div>
+        </form>
+      </div>
+    </React.Fragment>
 
-    );
+  );
   // }
   // }
 }

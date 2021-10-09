@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavigationBar from './NavigationBar';
 import AboutPage from './AboutPage';
+import CarDetail from './CarDetail';
 import LandingPage from './LandingPage';
 import NewCarFrom from './NewCarForm';
 import FooterPage from './FooterPage';
@@ -23,6 +24,9 @@ function App() {
           </Route>
           <Route path="/createcar">
             <NewCarFrom />
+          </Route>
+          <Route path="/detail">
+            <CarDetail />
           </Route>
           <Route path="/about">
             <AboutPage />

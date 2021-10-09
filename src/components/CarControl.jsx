@@ -80,6 +80,14 @@ class CarControl extends Component {
     this.setState({ selectedCar: null });
   };
 
+  handleAddCar = () => {
+    this.setState({ 
+      currentVisibleForm: true,
+      selectedCar: null,
+      editing: false,
+    });
+  };
+
   handleLikeButtonClicked = (clickedCarID) => {
     console.log("LIKED car ID is ");
     console.log(clickedCarID);
@@ -240,7 +248,7 @@ class CarControl extends Component {
       else if (this.state.selectedCar != null) {
         console.log("CC: Render Loop - selectedCar - CarDetail");
         currentVisibleForm = <ImageSlider slideImages={this.state.selectedCar} />
-        renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickingEdit={this.handleEditClick} />
+        renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickingEdit={this.handleEditClick} onClickingAddCar={this.handleAddCar} />
       }
       else {
         if (this.state.currentVisibleForm) {
