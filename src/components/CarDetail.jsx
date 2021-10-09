@@ -24,18 +24,23 @@ function CarDetail(props) {
 const currentUserIDRedux = useSelector(state => state.currentUserIDRedux);
 let updateCarButton = null;
 let deleteCarButton = null;
-let uploadCarButton = null;
-  function deleteTicket() {
-    console.log("Inside deleteTicket(). Captured ID is ");
+let addCarButton = null;
+  function deleteCar() {
+    console.log("Inside deleteCar(). Captured ID is ");
     console.log(selectedCar.id);
     firestore.delete({ collection: "car", doc: selectedCar.id }); //access Firestore via this.props.firestore. Then we call the delete() method.
     // onClickingDelete();
   }
+
+  function addCar() {
+
+  }
   console.log("CD: CURRENT USER IS");
   console.log(currentUserIDRedux.userID)
   if (currentUserIDRedux.userID === 'JPlfSdtQkeUodL3oi5JGDGVDdJO2') {
-      updateCarButton = <button className="btn btn-warning" onClick={onClickingEdit}>Update Car</button>
-      deleteCarButton = <button style ={{marginLeft: "50px"}} className="btn btn-danger" onClick={deleteTicket }>Delete Car</button>
+      addCarButton = <button style ={{marginLeft: "50px", background: "green", border: "none"}} className="btn btn-danger" onClick={addCar }>Add New Car</button>
+      updateCarButton = <button style ={{marginLeft: "50px"}} className="btn btn-warning" onClick={onClickingEdit}>Update Car</button>
+      deleteCarButton = <button style ={{marginLeft: "50px"}} className="btn btn-danger" onClick={ deleteCar }>Delete Car</button>      
   }
   else {
      
@@ -82,6 +87,7 @@ let uploadCarButton = null;
       </div>
 
       <div className="carDetailButton">
+        {addCarButton}
         {updateCarButton}
         {deleteCarButton}
       </div>
