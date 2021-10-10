@@ -232,11 +232,31 @@ class CarControl extends Component {
         refreshPage: false,
       });
 
-      console.log("masterCarList IS");
+      console.log("CC:componentDidMount - masterCarList IS");
       console.log(this.state.masterCarList);
     });
 
     console.log("END OF COMPOENENT DID MOUNT");
+  }
+
+
+
+  componentDidUpdate() {
+    console.log("START OF COMPOENENT DID UPDATE");
+    const db = firebase.firestore();
+    db.collection("car").get().then((querySnapshot) => {
+      const liveCars = querySnapshot.docs.map((doc) => {
+        const id = doc.id;
+        // console.log("DOC ID");
+        // console.log(doc.id);
+        const data = doc.data();
+        return { id, ...data };
+      });
+      this.setState({
+        masterCarList: liveCars
+      });
+    });
+    console.log("END OF COMPOENENT DID UPDATE");
   }
 
   paginateFunction = (arrayOfItems, pageNumber, pageSize) => {   //ontained from lodash library
@@ -268,9 +288,19 @@ class CarControl extends Component {
       console.log("CC: Loop - isLoaded && currentUser is not null");
       let currentVisibleForm = null;
       let renderForm = null;
-      const paginationCarArray = this.paginateFunction(        
+      console.log("CC: Loop - isLoaded && currentUser is not null - this.props.firestoreRedux");
+      console.log(this.props.firestoreRedux.data.car);
+      const liveCarArray = [this.props.firestoreRedux.data.car];
+      console.log("CC: Loop - isLoaded && currentUser is not null - liveCarArray");
+      console.log(liveCarArray);
+      // console.log("CC: Loop - isLoaded && currentUser is not null - liveCarArray.length");      
+      // console.log(liveCarArray.length);  
+      console.log("CC: Loop - isLoaded && currentUser is not null -this.state.masterCarList");
+      console.log(this.state.masterCarList);
+      // console.log(this.props.masterCarList.length);      
+      const paginationCarArray = this.paginateFunction(
+        // this.state.masterCarList,
         this.state.masterCarList,
-        // this.props.firestore.get({ collection: 'car' }),
         this.state.currentPage,
         this.state.pageSize
       );
@@ -294,7 +324,7 @@ class CarControl extends Component {
         currentVisibleForm = <ImageSlider slideImages={this.state.selectedCar} />
         renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickCloseCarDetail={this.handleClose} onClickingEdit={this.handleEditClick} onClickingAddCar={this.handleAddCar} onClickingDelete={this.handleDeletingCar} />
         // renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickCloseForm={this.handleClose} onClickingEdit={this.handleEditClick} onClickingAddCar={this.handleAddCar}  />
-      
+
       }
       else {
         if (this.state.currentVisibleForm) {

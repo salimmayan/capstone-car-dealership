@@ -32,9 +32,9 @@ function CarDetail(props) {
   console.log("CD: selectedCar.id");
   console.log(selectedCar.id);
   if (currentUserIDRedux.userID === 'JPlfSdtQkeUodL3oi5JGDGVDdJO2') {
-    addCarButton = <button style={{ marginLeft: "50px", background: "green", border: "none" }} className="btn btn-danger" onClick={onClickingAddCar}>Add New Car</button>
-    updateCarButton = <button style={{ marginLeft: "50px" }} className="btn btn-warning" onClick={ onClickingEdit }>Update Car</button>
-    deleteCarButton = <button style={{ marginLeft: "50px" }} className="btn btn-danger" onClick= { () => onClickingDelete (selectedCar.id) }>Delete Car</button>
+    addCarButton = <button style={{ marginRight: "50px", background: "green", border: "none" }} className="btn btn-danger" onClick={onClickingAddCar}>Add New Car</button>
+    updateCarButton = <button style={{ marginRight: "50px" }} className="btn btn-warning" onClick={ onClickingEdit }>Update Car</button>
+    deleteCarButton = <button style={{ marginRight: "50px" }} className="btn btn-danger" onClick= { () => onClickingDelete (selectedCar.id) }>Delete Car</button>
   }
   else {
 
@@ -84,7 +84,7 @@ function CarDetail(props) {
         {addCarButton}
         {updateCarButton}
         {deleteCarButton}
-        <button style={{ marginLeft: "50px", background: "blue", border: "none" }} className="btn btn-danger" onClick={onClickCloseCarDetail}>Back to Home Page</button>
+        <button style={{ marginRight: "50px", background: "blue", border: "none" }} className="btn btn-danger" onClick={onClickCloseCarDetail}>Back to Home Page</button>
       </div>
     </React.Fragment>
   );
