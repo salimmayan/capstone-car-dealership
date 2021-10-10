@@ -22,7 +22,7 @@
 
 <details>
 
-<summary><span  style="color:red"><strong>Expand to Read `Non-MVP` (Additional Feature_ User Stories)</strong></summary>
+<summary><span  style="color:red"><strong>Expand to Read `Non-MVP` (`Additional Feature` User Stories)</strong></summary>
 
 1.  Authentication
 2.  Authorization (ADMIN shall have greater level of Privileges such as Delete record, update record etc.)
