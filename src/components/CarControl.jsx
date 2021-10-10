@@ -79,7 +79,7 @@ class CarControl extends Component {
   handleDeletingCar = (id) => {
     console.log("CC: INSIDE Inside handleDeletingCar(). Captured ID is ");
     console.log(id);
-    // this.props.firestore.delete({ collection: "car", doc: id });
+    this.props.firestore.delete({ collection: "car", doc: id });
 
     this.setState({
       selectedCar: null,
