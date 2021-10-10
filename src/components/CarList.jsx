@@ -33,11 +33,8 @@ function CarList(props) {
   console.log(cars);
   // react-redux-firebase also offers a useful isLoaded() function.
   if (isLoaded(cars)) {
-    return (
-
-     
-        <Row>
-         
+    return (     
+        <Row>         
          <React.Fragment>
           {/* <h1>Car List component</h1> */}
           {props.carList.map((currentCar) => {            
@@ -57,10 +54,7 @@ function CarList(props) {
             );
           })}
          
-          </React.Fragment>
-         
-        
-        
+          </React.Fragment>       
         </Row>
     );
     // If the cars aren't loaded yet, our fragment will return a "Loading..." message.
@@ -75,7 +69,7 @@ function CarList(props) {
 
 CarList.propTypes = {
   // carList: PropTypes.array,
-  // carList: PropTypes.object,
+  carList: PropTypes.array,
   onCarSelection: PropTypes.func
 };
 

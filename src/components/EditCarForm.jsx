@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 // NOTES:  window.location = '/'; is used to redirect from current page to "home". 
 
 function EditCarForm(props) {
-  const { car } = props;
+  const { car, onSubmittingEditCarForm, onClickCloseForm } = props;
   const firestore = useFirestore(); //call useFirestore() function and save our Firestore reference in a constant called firestore
 
   const [updated, setUpdate] = React.useState(false);
@@ -31,8 +31,9 @@ function EditCarForm(props) {
       },
       Features: event.target.Features.value,
     };
-    firestore.update({ collection: "car", doc: car.id }, updatedCar); //Firestore will merge the two arg objects
+    // firestore.update({ collection: "car", doc: car.id }, updatedCar); //Firestore will merge the two arg objects
     console.log("EF: I AM GETTING SUBMITTED");
+    onSubmittingEditCarForm (updatedCar, car.id);
     // handleSetUpdate();
   }
 
@@ -44,6 +45,7 @@ function EditCarForm(props) {
   if (updated) {
     window.location = '/'; // redirects to home page
     setUpdate(false);
+    
   }
 
   const handleClose = (e) => {
@@ -133,15 +135,16 @@ function EditCarForm(props) {
           </tbody>
         </table>
           <div className = "carDetailButton">
-            <button style ={{marginLeft: "50px"}} className="paddingRightLeft buttonPrimary btn btn-danger" type="submit">
+            <button style ={{marginLeft: "50px"}} className="paddingRightLeft buttonPrimary btn btn-danger" type="submit" >
               Update
             </button>
             <button style ={{marginLeft: "50px"}} className="paddingRightLeft buttonPrimary btn btn-warning" type="reset">
               Reset
           </button>
-            <button id="close" style ={{marginLeft: "50px"}} className="paddingRightLeft buttonPrimary btn btn-primary" type="reset" onClick={handleClose}>
+            {/* <button id="close" style ={{marginLeft: "50px"}} className="paddingRightLeft buttonPrimary btn btn-primary" type="reset" onClick={handleClose}>
               Close
-          </button>
+          </button> */}
+           <button style ={{marginLeft: "50px", background: "blue", border: "none"}} className="btn btn-danger" onClick={ onClickCloseForm }>Back to Home Page</button>
           </div>
         </form>
       </div>
@@ -152,6 +155,8 @@ function EditCarForm(props) {
 EditCarForm.propTypes = {
   car: PropTypes.object,
   onButtonText: PropTypes.string,
+  onSubmittingEditCarForm: PropTypes.func,
+  onClickCloseForm: PropTypes.func
 };
 
 export default EditCarForm;

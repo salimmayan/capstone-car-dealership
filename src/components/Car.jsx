@@ -16,47 +16,27 @@ const myStyledComponentStyles = {
   marginLeft: "0px",
   maxWidth: "100%",
   height: "auto",
-  paddingLeft: "4px",
-  // wdth: "100%",
+  paddingLeft: "4px"
 };
 
-
-
 function Car(props) {
-
-
   return (
-
-
     <React.Fragment>
       <Col lg={4}>
         <div>
-          {/* <div onClick={() => props.whenCarClicked(props.id)}> */}
-          {/* <h3>{props.Make} - {props.Miles}</h3> */}
-
           <div className="thumbnail">
             <div onClick={() => props.whenCarClicked(props.id)}>
               <img style={myStyledComponentStyles} src={props.ImageURL} alt=""></img>
             </div>
             <div onClick={() => props.whenLikeButtonClicked(props.id)}>
-            <div style={{ margin: 'auto', display: 'block', width: 'fit-content' }}>
-              <FormControlLabel control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />} label="" />
+              <div style={{ margin: 'auto', display: 'block', width: 'fit-content' }}>
+                <FormControlLabel control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />} label="" />
+              </div>
             </div>
-            </div>
-            <p className="moreWeight">
-              {props.Year} {props.Make} {props.Model}
-            </p>
-            <p className="lessWeight">
-              {props.Trim} | {props.Miles.toLocaleString()}{" "}
-              miles
-            </p>
-            <p className="moreWeight">
-              ${props.Price.toLocaleString()}
-            </p>
-
+            <p className="moreWeight">{props.Year} {props.Make} {props.Model}</p>
+            <p className="lessWeight">{props.Trim} | {props.Miles.toLocaleString()}{" "}miles</p>
+            <p className="moreWeight">${props.Price.toLocaleString()}</p>
           </div>
-
-
         </div>
       </Col>
     </React.Fragment>

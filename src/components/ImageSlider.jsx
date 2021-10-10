@@ -15,7 +15,7 @@ function ImageSlider(props) {
     const SliderData = tempSliderData.map((index) => {
         return {image: index.value};
     });
-    console.log("SliderData is");
+    console.log("IS: SliderData is");
     console.log(SliderData); 
 
     const length = SliderData.length;

@@ -11,12 +11,14 @@ import { connect } from 'react-redux';
 
 const db = firebase.firestore();
 
-function NewCarForm() {
+function NewCarForm(props) {
   const firestore = useFirestore();
   const [fileUrl, setFileURLs] = React.useState([]);
   const [uuID, setUuID] = React.useState();
   const [imgURLs, setImageURLs] = React.useState([]);
   const [updated, setUpdate] = React.useState(false);
+  const { onSubmittingNewCarForm, onClickCloseNewCarForm } = props;
+
 
   const addImageURL = (toAdd) => {
     setImageURLs([
@@ -111,6 +113,7 @@ function NewCarForm() {
 
     addNonImageFieldToFirestore(uuID);
     // console.log("SALIM!!!carMake:imgExtURL:imgURLs::" + carMake + ":" + imgExtURL + ":" + imgURLs);
+    onSubmittingNewCarForm();
   };
 
 
@@ -181,7 +184,8 @@ function NewCarForm() {
           <div className="container">
             <div className="buttonPrimary2">
               <button style={{ marginLeft: "50px" }} className="btn btn-warning" >Create New Car</button>
-              <button id="close" style={{ marginLeft: "50px" }} className="btn btn-primary" type="reset" onClick={handleClose}>Close Form</button>
+              {/* <button id="close" style={{ marginLeft: "50px" }} className="btn btn-primary" type="reset" onClick={handleClose}>Close Form</button> */}
+              <button style ={{marginLeft: "50px", background: "blue", border: "none"}} className="btn btn-danger" onClick={ onClickCloseNewCarForm }>Back to Home Page</button>
             </div>
           </div>
         </form>
@@ -193,9 +197,10 @@ function NewCarForm() {
   // }
 }
 
-// NewCarForm.propTypes = {
-//   loggedIn: PropTypes.bool
-// };
+NewCarForm.propTypes = {
+  onSubmittingNewCarForm: PropTypes.func,
+  onClickCloseNewCarForm: PropTypes.func
+};
 
 // const mapStateToProps = (state) => {
 //   return {

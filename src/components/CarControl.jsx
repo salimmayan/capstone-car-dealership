@@ -29,7 +29,7 @@ class CarControl extends Component {
       selectedCar: null,
       masterCarList: null,
       addNewCar: false,
-      pageSize: 6,
+      pageSize: 3,
       currentPage: 1,
       startState: true,
       loggedInUser: string,
@@ -53,8 +53,8 @@ class CarControl extends Component {
     console.log("Doc ID is ");
     console.log(id);
     // const fireStoreSelectedCar = this.props.firestore.get({ collection: 'car', doc: id });
-    // console.log("Doc fireStoreSelectedCar is ");
-    // console.log(fireStoreSelectedCar);
+    console.log("CC: handleChangingSelectedCar - SELECTED CAR is ");
+    console.log(id);
     const selectedCar = this.state.masterCarList.filter(
       (car) => car.id === id
     )[0];
@@ -74,15 +74,57 @@ class CarControl extends Component {
     console.log("inside handleOnSignInSuccess");
   };
 
+
+
   handleDeletingCar = (id) => {
-    this.props.firestoreRedux.delete({ collection: 'car', doc: id });
-    this.setState({ masterCarList: this.props.firestoreRedux.get({ collection: 'car', doc: id }) });
-    this.setState({ selectedCar: null });
+    console.log("CC: INSIDE Inside handleDeletingCar(). Captured ID is ");
+    console.log(id);
+    // this.props.firestore.delete({ collection: "car", doc: id });
+
+    this.setState({
+      selectedCar: null,
+      // masterCarList: this.props.firestore.get({ collection: 'car' }),
+    });
   };
 
   handleAddCar = () => {
-    this.setState({ 
+    console.log("CC: INSIDE handleAddCar()");
+    this.setState({
       currentVisibleForm: true,
+      selectedCar: null,
+      // masterCarList: this.props.firestore.get({ collection: 'car' }),
+      editing: false,
+    });
+  };
+
+  handleNewCarForm = () => {
+    this.setState({
+      currentVisibleForm: false,
+      // masterCarList: this.props.firestore.get({ collection: 'car' }),
+      selectedCar: null,
+      editing: false,
+    });
+  };
+
+  handleSubmittingEditCarForm = (updatedCar, id) => {
+    console.log("CC:HANDLEDUBMITTINGEDITCARFORM - UPDATED CAR IS ");
+    console.log(updatedCar);
+    console.log("CC:HANDLEDUBMITTINGEDITCARFORM - id IS");
+    console.log(id);
+    this.props.firestore.update({ collection: "car", doc: id }, updatedCar);
+    console.log("CC:HANDLEDUBMITTINGEDITCARFORM");
+    this.setState({
+      currentVisibleForm: false,
+      // masterCarList: this.props.firestore.get({ collection: 'car' }),
+      selectedCar: null,
+      editing: false,
+    });
+  };
+
+  handleClose = () => {
+    this.setState({
+      currentVisibleForm: false,
+      // masterCarList: this.props.firestore.get({ collection: 'car' }),
       selectedCar: null,
       editing: false,
     });
@@ -108,15 +150,15 @@ class CarControl extends Component {
     // console.log(fireStoreSelectedCar);
     const uuID = {};
     uuID.id = v4()
-    const temp= uuID.id;
+    const temp = uuID.id;
     console.log("temp");
     console.log(temp);
-    const newLikedCarObj = {temp: clickedCarID}
+    const newLikedCarObj = { temp: clickedCarID }
     console.log("newLikedCarObj");
     console.log(newLikedCarObj);
     const db = firebase.firestore();
     console.log("GETTING DATA FROM FS");
-    console.log(this.props.firestoreRedux );
+    console.log(this.props.firestoreRedux);
     // pull all cars that were clicked and then if current click matches an existing car, remove it. Else if current click
     // is not in the list of cars, then add it. 
     // const currentLikes = this.props.firestore.get({collection: 'users'})
@@ -125,15 +167,15 @@ class CarControl extends Component {
     //     var dbUser = db.collection('users').doc(user.uid).update({ newLikedCarObj });
     //  });
 
-      // firebase.auth().onAuthStateChanged(function (user) {
-      //               console.log("SIGN-IN I AM INSIDE");
-      //               var dbUser = db.collection('users')
-      //                   .doc(user.uid).set(
-      //                       {
-      //                           email: user.email,
-      //                           someotherproperty: "some user preference"
-      //                       });
-      //           });
+    // firebase.auth().onAuthStateChanged(function (user) {
+    //               console.log("SIGN-IN I AM INSIDE");
+    //               var dbUser = db.collection('users')
+    //                   .doc(user.uid).set(
+    //                       {
+    //                           email: user.email,
+    //                           someotherproperty: "some user preference"
+    //                       });
+    //           });
 
     //  db.collection("users2").doc(this.props.currentUserIDRedux).set({
     //   //"car" is the name of collection
@@ -226,11 +268,14 @@ class CarControl extends Component {
       console.log("CC: Loop - isLoaded && currentUser is not null");
       let currentVisibleForm = null;
       let renderForm = null;
-      const paginationCarArray = this.paginateFunction(
+      const paginationCarArray = this.paginateFunction(        
         this.state.masterCarList,
+        // this.props.firestore.get({ collection: 'car' }),
         this.state.currentPage,
         this.state.pageSize
       );
+      console.log("CC: PAGINATION CAR ARRAY");
+      console.log(paginationCarArray);
       console.log("CC: firestoreRedux ");
       console.log(this.props.firestoreRedux);
 
@@ -242,18 +287,19 @@ class CarControl extends Component {
       }
       else if (this.state.editing) {
         console.log("CC: Render Loop - editing - EditCarForm");
-        // console.log("IN RENDER() - this.state.editing ");
-        currentVisibleForm = (<EditCarForm car={this.state.selectedCar} buttonText="Update" />);
+        currentVisibleForm = (<EditCarForm onClickCloseForm={this.handleClose} onSubmittingEditCarForm={this.handleSubmittingEditCarForm} car={this.state.selectedCar} buttonText="Update" />);
       }
       else if (this.state.selectedCar != null) {
         console.log("CC: Render Loop - selectedCar - CarDetail");
         currentVisibleForm = <ImageSlider slideImages={this.state.selectedCar} />
-        renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickingEdit={this.handleEditClick} onClickingAddCar={this.handleAddCar} />
+        renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickCloseCarDetail={this.handleClose} onClickingEdit={this.handleEditClick} onClickingAddCar={this.handleAddCar} onClickingDelete={this.handleDeletingCar} />
+        // renderForm = <CarDetail selectedCar={this.state.selectedCar} onClickCloseForm={this.handleClose} onClickingEdit={this.handleEditClick} onClickingAddCar={this.handleAddCar}  />
+      
       }
       else {
         if (this.state.currentVisibleForm) {
           console.log("CC: Render Loop - currentVisibleForm - NewCarForm");
-          currentVisibleForm = <NewCarForm />;
+          currentVisibleForm = <NewCarForm onClickCloseNewCarForm={this.handleClose} onSubmittingNewCarForm={this.handleNewCarForm} />;
         }
         else {
           console.log("CC: Render Loop - currentVisibleForm - CarList");
