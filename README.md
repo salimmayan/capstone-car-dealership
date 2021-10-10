@@ -35,6 +35,14 @@
 
 ## Component Tree Diagram
 
+```
+++++
+<p align="center">
+  <img src="https://github.com/salimmayan/capstone-car-dealership/blob/main/src/img/ComponentDiagram.png">
+</p>
+++++
+```
+
 ![Component Tree Diagram](https://github.com/salimmayan/capstone-car-dealership/blob/main/src/img/ComponentDiagram.png)
  
 *** 
