@@ -1,70 +1,100 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+##  Capstone Project: `User Car Dealer Website (React with NoSQL)`
 
-## Available Scripts
+#### A React web application that shall render a listing of cars up for sale along with image and details that are relevant to a car buyer (make, model, year, price, odometer reading, miles, detailed images etc.). 
+-   Users are buyers in the market looking for more choices when it comes to buying cars (more choices than what a traditional non-online dealer would provide)
+-   Allows car purchasing from the confines of one’s home by providing accurate details of the vehicle including accident history, condition and clear external and internal images
+-   Website allows a car vendor to display his wares and complete transaction with interested parties (who are remotely located)
 
-In the project directory, you can run:
+### Listing of user stories pertaining to `MVP` (mandatory) and `Non-MVP` (Additional Feature)` are listed below.
+<details>
 
-### `npm start`
+<summary><span  style="color:red"><strong>Expand to Read `MVP` (Mandatory) User Stories</strong></summary>
+ 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1.  Persist new car record in Firestore
+2.  Permit Update of existing record in Firestore
+3.  Permit Delete of existing record in Firestore
+4.  Real-time display of cars (data fetched from Firestore)
+5.  Clicking on a car shall take user to “more details” page which shall have more images and additional details pertaining to clicked car.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+</details>
 
-### `npm test`
+<details>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<summary><span  style="color:red"><strong>Expand to Read `Non-MVP` (Additional Feature_ User Stories</strong></summary>
 
-### `npm run build`
+1.  Authentication
+2.  Authorization (ADMIN shall have greater level of Privileges such as Delete record, update record etc.)
+3.  Styling with Grid, stylesheets, and CSS objects
+4.  User can click on "Like" button as a a bookmarking feature
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+</details>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+*** 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Component Tree Diagram
 
-### `npm run eject`
+![Component Tree Diagram](https://github.com/salimmayan/capstone-car-dealership/blob/main/src/img/ComponentDiagram.png)
+ 
+*** 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Setup/Installation Requirements
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone this repository.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2. To run program, do `npm install' and "npm start'
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Known Bugs
 
-## Learn More
+* No known bugs at this time.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Technologies Used
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* React
+* React-Redux
+* HTML
+* CSS
+* Grid
+* JS
+* Bootstrap
+* Firebase
+* Firestore
+* npm
 
-### Code Splitting
+## Support and contact details
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* Reach Author: via <a  href="https://www.linkedin.com/in/salim-mayan/"  target="_blank">Linkedin</a> or <a  href="mailto:mailsalim@gmail.com"  target="_blank">Email</a>.
 
-### Analyzing the Bundle Size
+### License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Licensing
 
-### Making a Progressive Web App
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+MIT License
 
-### Advanced Configuration
+Copyright (c) 2021 SALIM MAYAN
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-### Deployment
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-### `npm run build` fails to minify
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+Copyright (c) 2021 **_{Salim Mayan}_**
