@@ -80,7 +80,7 @@ class CarControl extends Component {
     console.log("CC: INSIDE Inside handleDeletingCar(). Captured ID is ");
     console.log(id);
     this.props.firestore.delete({ collection: "car", doc: id });
-
+    this.updateMasterTicketList();
     this.setState({
       selectedCar: null,
       // masterCarList: this.props.firestore.get({ collection: 'car' }),
@@ -89,6 +89,7 @@ class CarControl extends Component {
 
   handleAddCar = () => {
     console.log("CC: INSIDE handleAddCar()");
+    this.updateMasterTicketList();
     this.setState({
       currentVisibleForm: true,
       selectedCar: null,
@@ -98,6 +99,7 @@ class CarControl extends Component {
   };
 
   handleNewCarForm = () => {
+    this.updateMasterTicketList();
     this.setState({
       currentVisibleForm: false,
       // masterCarList: this.props.firestore.get({ collection: 'car' }),
@@ -113,6 +115,7 @@ class CarControl extends Component {
     console.log(id);
     this.props.firestore.update({ collection: "car", doc: id }, updatedCar);
     console.log("CC:HANDLEDUBMITTINGEDITCARFORM");
+    this.updateMasterTicketList();
     this.setState({
       currentVisibleForm: false,
       // masterCarList: this.props.firestore.get({ collection: 'car' }),
@@ -130,57 +133,105 @@ class CarControl extends Component {
     });
   };
 
-  handleLikeButtonClicked = (clickedCarID) => {
-    console.log("LIKED car ID is ");
-    console.log(clickedCarID);
-    // const newMasterLikedList = this.props.firestoreRedux;
-    // console.log("newMasterLikedList is ");
-    // console.log(newMasterLikedList);
-    // const newId = {clickedCarID};
-    // console.log(clickedCarID);
-    // this.props.firestore.update({collection: 'users', doc: this.props.currentUserIDRedux }, id)
-    // return this.props.firestore.update({collection: 'user', doc: this.props.currentUserIDRedux }, newId)
-
-    // .masterKegList.concat(newKeg);
-
-    // const likedCars = {id}
-
-    // const fireStoreSelectedCar = this.props.firestore.add({ collection: 'user', doc: this.props.currentUserIDRedux }, likedCars);
-    // console.log("Doc fireStoreSelectedCar is ");
-    // console.log(fireStoreSelectedCar);
-    const uuID = {};
-    uuID.id = v4()
-    const temp = uuID.id;
-    console.log("temp");
-    console.log(temp);
-    const newLikedCarObj = { temp: clickedCarID }
-    console.log("newLikedCarObj");
-    console.log(newLikedCarObj);
+  updateMasterTicketList = () => {
     const db = firebase.firestore();
-    console.log("GETTING DATA FROM FS");
-    console.log(this.props.firestoreRedux);
-    // pull all cars that were clicked and then if current click matches an existing car, remove it. Else if current click
-    // is not in the list of cars, then add it. 
-    // const currentLikes = this.props.firestore.get({collection: 'users'})
-    // console.log(currentLikes);
-    //  firebase.auth().onAuthStateChanged(function (user) {
-    //     var dbUser = db.collection('users').doc(user.uid).update({ newLikedCarObj });
-    //  });
+    db.collection("car").get().then((querySnapshot) => {
+      const liveCars = querySnapshot.docs.map((doc) => {
+        const id = doc.id;
+        // console.log("DOC ID");
+        // console.log(doc.id);
+        const data = doc.data();
+        return { id, ...data };
+      });
+      this.setState({
+        masterCarList: liveCars
+      });
+    });
+  };
 
-    // firebase.auth().onAuthStateChanged(function (user) {
-    //               console.log("SIGN-IN I AM INSIDE");
-    //               var dbUser = db.collection('users')
-    //                   .doc(user.uid).set(
-    //                       {
-    //                           email: user.email,
-    //                           someotherproperty: "some user preference"
-    //                       });
-    //           });
+//   updateVegetablesCollection (veggies, veggie) {
+//     if (veggies.indexOf(veggie) === -1) {
+//         veggies.push(veggie);
+//         console.log('New veggies collection is : ' + veggies);
+//     } else if (veggies.indexOf(veggie) > -1) {
+//         console.log(veggie + ' already exists in the veggies collection.');
+//     }
+// }
 
-    //  db.collection("users2").doc(this.props.currentUserIDRedux).set({
-    //   //"car" is the name of collection
-    //   uuIDTicket: id,
-    // });
+
+
+  handleLikeButtonClicked = (clickedCarID) => {
+   const db = firebase.firestore(); 
+    let users;
+    let carsPrevLikedByUser;
+    db.collection("user").get().then((querySnapshot) => {
+      users = querySnapshot.docs.map((doc) => {
+        const id = doc.id;
+        console.log("CC: HANDLE LIKED BUTTON CLICK - DOC ID");
+        console.log(doc.id);  //doc.id is middle coloumn which is user ID
+        if (id === this.props.currentUserIDRedux.userID) {
+          //   const carsPrevLikedByUser = this.state.masterCarList.filter(
+          //   (car) => car.id === id
+          // )[0];
+          carsPrevLikedByUser = doc.data();  //doc.data is right most coloumn which is car ID's
+        }
+        const data = doc.data();
+        return { id, ...data };
+        // return { id };
+      });
+
+      console.log("Current User:Clicked Car Id:Cars Previosly Liked by User:::" + this.props.currentUserIDRedux.userID + ":" + clickedCarID + ":" + carsPrevLikedByUser);
+      // console.log("Current User:Clicked Car Id:Cars Previosly Liked by User:::" + this.props.currentUserIDRedux.userID + ":" + clickedCarID );
+          
+
+      // likedCarId
+      // console.log("CC: HANDLE LIKED BUTTON CLICK - users");
+      // console.log(users);
+      // console.log(users[0]); //{id: 'JPlfSdtQkeUodL3oi5JGDGVDdJO2', likedCarId: ["4bec2952-8fb5-44f8-ae6c-fb4ee3e3d190", "2a8d6107-38b7-4bab-92a9-d04030f8a0ed"]} 
+      // console.log(users[1]); //{id: 'sAaFSSvOUAfzykLdGDmW9rMixgZ2', likedCarId: ["879d9c06-1f02-4f94-802c-40409e364699", "0ae7b823-e6d3-49f3-bea7-481ceaf8c297"]} 
+      
+      // console.log(users[0].id); //JPlfSdtQkeUodL3oi5JGDGVDdJO2
+      // console.log(users[1].id);  //sAaFSSvOUAfzykLdGDmW9rMixgZ2
+
+      // const temp1 =users[0].likedCarId[0];  //id and likedCarId are two key's inside object. 
+      // console.log(temp1); //JPlfSdtQkeUodL3oi5JGDGVDdJO2
+      
+
+      let likedCarId;
+      console.log(users.length);
+      console.log(this.props.currentUserIDRedux.userID);
+      console.log(users[0].id);
+      for (let i = 0; i < users.length; i++) {
+        if (users[i].id == this.props.currentUserIDRedux.userID) {
+          likedCarId = users[i].likedCarId;
+        }
+      }
+      console.log(likedCarId);
+
+      var newItem = clickedCarID; 
+      if(likedCarId.indexOf(newItem) === -1)  
+      {  //if not present
+        //add
+        likedCarId.push(newItem);
+      }   
+     else if (likedCarId.indexOf(newItem) > -1) 
+     {  //if present
+      console.log(likedCarId + '  BEFORE REMOVING.'); 
+      const index = likedCarId.indexOf(newItem);
+      likedCarId.splice(index, 1);
+      console.log(likedCarId + '  AFTER REMOVING.');
+
+  }
+
+      
+
+      
+      // likedCarId.indexOf(newItem) === -1 ? likedCarId.push(newItem) : console.log("This item already exists");      
+      // console.log(likedCarId)
+      db.collection('user').doc(this.props.currentUserIDRedux.userID).update({ likedCarId });
+
+      
+    });
   }
 
 
@@ -242,21 +293,21 @@ class CarControl extends Component {
 
 
   componentDidUpdate() {
-    console.log("START OF COMPOENENT DID UPDATE");
-    const db = firebase.firestore();
-    db.collection("car").get().then((querySnapshot) => {
-      const liveCars = querySnapshot.docs.map((doc) => {
-        const id = doc.id;
-        // console.log("DOC ID");
-        // console.log(doc.id);
-        const data = doc.data();
-        return { id, ...data };
-      });
-      this.setState({
-        masterCarList: liveCars
-      });
-    });
-    console.log("END OF COMPOENENT DID UPDATE");
+    // console.log("START OF COMPOENENT DID UPDATE");
+    // const db = firebase.firestore();
+    // db.collection("car").get().then((querySnapshot) => {
+    //   const liveCars = querySnapshot.docs.map((doc) => {
+    //     const id = doc.id;
+    //     // console.log("DOC ID");
+    //     // console.log(doc.id);
+    //     const data = doc.data();
+    //     return { id, ...data };
+    //   });
+    //   this.setState({
+    //     masterCarList: liveCars
+    //   });
+    // });
+    // console.log("END OF COMPOENENT DID UPDATE");
   }
 
   paginateFunction = (arrayOfItems, pageNumber, pageSize) => {   //ontained from lodash library
