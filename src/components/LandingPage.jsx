@@ -70,10 +70,8 @@ function LandingPage(props) {
                     userID: currentUserID
                 }
                 dispatch(action_ID);
-
                 // const isLoggedInRedux= useSelector(state => state.isLoggedInRedux);
                 // currentUserIDRedux
-
                 console.log("SIGN-IN I AM ALMOST THERE");
                 // var docIdArray;
                 // db.collection("car").get().then((querySnapshot) => {
@@ -86,7 +84,6 @@ function LandingPage(props) {
                 //         return  id;
                 //     });
                 // });
-
 
                 // const tempDocIdArray = docIdArray;
                 // console.log(tempDocIdArray);
@@ -111,15 +108,15 @@ function LandingPage(props) {
 
                 // console.log(likeButtonDefaultState);
 
-                // firebase.auth().onAuthStateChanged(function (user) {
-                //     console.log("SIGN-IN I AM INSIDE");
-                //     var dbUser = db.collection('user')
-                //         .doc(user.uid).set(
-                //             {
-                //                 email: user.email,
-                //                 someotherproperty: "some user preference"
-                //             });
-                // });
+                firebase.auth().onAuthStateChanged(function (user) {
+                    console.log("SIGN-IN I AM INSIDE");
+                    var dbUser = db.collection('user')
+                        .doc(user.uid).set({
+                                // likedCarId: ["4bec2952-8fb5-44f8-ae6c-fb4ee3e3d190", "2a8d6107-38b7-4bab-92a9-d04030f8a0ed"]
+                                likedCarId: []
+                            }
+                           );
+                });
 
                 // console.log("LP: Successfully Signed In -AFTER STATE CHANGE!");
                 // console.log(isLoggedInRedux);

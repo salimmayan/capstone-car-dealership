@@ -70,7 +70,8 @@ function CarList(props) {
 CarList.propTypes = {
   // carList: PropTypes.array,
   carList: PropTypes.array,
-  onCarSelection: PropTypes.func
+  onCarSelection: PropTypes.func,
+  onwhenLikeButtonClicked: PropTypes.func,
 };
 
 export default CarList;

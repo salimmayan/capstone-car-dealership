@@ -31,7 +31,10 @@ function CarDetail(props) {
   console.log(currentUserIDRedux.userID)
   console.log("CD: selectedCar.id");
   console.log(selectedCar.id);
-  if (currentUserIDRedux.userID === 'JPlfSdtQkeUodL3oi5JGDGVDdJO2') {
+  console.log("CD: selectedCar");
+  console.log(selectedCar);
+  console.log(typeof(selectedCar));
+  if (currentUserIDRedux.userID === 'JPlfSdtQkeUodL3oi5JGDGVDdJO2' || currentUserIDRedux.userID === '0Y0HOyp9cjNLbfMhjaCiofmr07W2') {
     addCarButton = <button style={{ marginRight: "50px", background: "green", border: "none" }} className="btn btn-danger" onClick={onClickingAddCar}>Add New Car</button>
     updateCarButton = <button style={{ marginRight: "50px" }} className="btn btn-warning" onClick={ onClickingEdit }>Update Car</button>
     deleteCarButton = <button style={{ marginRight: "50px" }} className="btn btn-danger" onClick= { () => onClickingDelete (selectedCar.id) }>Delete Car</button>
